@@ -3873,7 +3873,7 @@ function(value) {
     prototype.smallValue = null;
     prototype.mnum = null;
     prototype.largeValue = null;
-    prototype.integerMode = null;
+    prototype.integerMode = 0;
     constructor.valueInt32MinValue = BigInteger.valueOf(-2147483648);
     constructor.valueInt32MaxValue = BigInteger.valueOf(2147483647);
     constructor.valueNegativeInt32MinValue = (FastInteger.valueInt32MinValue).negate();
@@ -10224,7 +10224,8 @@ function(unsignedMantissa, exponent, flags) {
     };
 
     constructor['FromString'] = constructor.FromString = function(str, offset, length, ctx) {
-        var tmpoffset = offset;
+        if(typeof offset=='undefined'){ offset=0; length=str.length; ctx=null; }
+var tmpoffset = offset;
         if (str == null) {
             throw new Error("str");
         }
@@ -11635,7 +11636,8 @@ function(unsignedMantissa, exponent, flags) {
     };
 
     constructor['FromString'] = constructor.FromString = function(str, offset, length, ctx) {
-        if (str == null) {
+        if(typeof offset=='undefined'){ offset=0; length=str.length; ctx=null; }
+if (str == null) {
             throw new Error("str");
         }
         return ExtendedDecimal.FromString(str, offset, length, ctx).ToExtendedFloat();
