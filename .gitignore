@@ -12,6 +12,7 @@ js/DecTest.*
 ProfilingSessions/
 CBORTest/ProfilingSessions/
 .project
+DecTest.js
 .classpath
 *.shf*
 *.Settings
