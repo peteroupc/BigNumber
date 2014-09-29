@@ -1,6 +1,6 @@
 (function(){
 /*
-Written in 2013 by Peter O.
+Written in 2013-2014 by Peter O.
 
 Any copyright is dedicated to the Public Domain.
 http://creativecommons.org/publicdomain/zero/1.0/
@@ -285,13 +285,13 @@ function(wordCount, reg, negative) {
     this.negative = negative;
 };
 (function(constructor,prototype){
-    constructor['CountWords'] = constructor.CountWords = function(array, n) {
+    constructor.CountWords = function(array, n) {
         while (n != 0 && array[n - 1] == 0) {
             --n;
         }
         return (n|0);
     };
-    constructor['ShiftWordsLeftByBits'] = constructor.ShiftWordsLeftByBits = function(r, rstart, n, shiftBits) {
+    constructor.ShiftWordsLeftByBits = function(r, rstart, n, shiftBits) {
         {
             var u, carry = 0;
             if (shiftBits != 0) {
@@ -304,7 +304,7 @@ function(wordCount, reg, negative) {
             return carry;
         }
     };
-    constructor['ShiftWordsRightByBits'] = constructor.ShiftWordsRightByBits = function(r, rstart, n, shiftBits) {
+    constructor.ShiftWordsRightByBits = function(r, rstart, n, shiftBits) {
         var u, carry = 0;
         {
             if (shiftBits != 0) {
@@ -317,7 +317,7 @@ function(wordCount, reg, negative) {
             return carry;
         }
     };
-    constructor['ShiftWordsRightByBitsSignExtend'] = constructor.ShiftWordsRightByBitsSignExtend = function(r, rstart, n, shiftBits) {
+    constructor.ShiftWordsRightByBitsSignExtend = function(r, rstart, n, shiftBits) {
         {
             var u, carry = ((65535 << ((16 - shiftBits)|0))|0);
             if (shiftBits != 0) {
@@ -330,7 +330,7 @@ function(wordCount, reg, negative) {
             return carry;
         }
     };
-    constructor['ShiftWordsLeftByWords'] = constructor.ShiftWordsLeftByWords = function(r, rstart, n, shiftWords) {
+    constructor.ShiftWordsLeftByWords = function(r, rstart, n, shiftWords) {
         shiftWords = (shiftWords < n ? shiftWords : n);
         if (shiftWords != 0) {
             for (var i = n - 1; i >= shiftWords; --i) {
@@ -339,7 +339,7 @@ function(wordCount, reg, negative) {
             for (var arrfillI = rstart; arrfillI < (rstart) + (shiftWords); arrfillI++) (r)[arrfillI] = 0;
         }
     };
-    constructor['ShiftWordsRightByWordsSignExtend'] = constructor.ShiftWordsRightByWordsSignExtend = function(r, rstart, n, shiftWords) {
+    constructor.ShiftWordsRightByWordsSignExtend = function(r, rstart, n, shiftWords) {
         shiftWords = (shiftWords < n ? shiftWords : n);
         if (shiftWords != 0) {
             for (var i = 0; i + shiftWords < n; ++i) {
@@ -351,7 +351,7 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['Compare'] = constructor.Compare = function(words1, astart, words2, bstart, n) {
+    constructor.Compare = function(words1, astart, words2, bstart, n) {
         while ((n--) != 0) {
             var an = ((words1[astart + n])|0) & 65535;
             var bn = ((words2[bstart + n])|0) & 65535;
@@ -364,7 +364,7 @@ function(wordCount, reg, negative) {
         }
         return 0;
     };
-    constructor['CompareWithOneBiggerWords1'] = constructor.CompareWithOneBiggerWords1 = function(words1, astart, words2, bstart, words1Count) {
+    constructor.CompareWithOneBiggerWords1 = function(words1, astart, words2, bstart, words1Count) {
         if (words1[astart + words1Count - 1] != 0) {
             return 1;
         }
@@ -382,7 +382,7 @@ function(wordCount, reg, negative) {
         }
         return 0;
     };
-    constructor['Increment'] = constructor.Increment = function(words1, words1Start, n, words2) {
+    constructor.Increment = function(words1, words1Start, n, words2) {
         {
             var tmp = words1[words1Start];
             words1[words1Start] = ((tmp + words2) & 65535);
@@ -398,7 +398,7 @@ function(wordCount, reg, negative) {
             return 1;
         }
     };
-    constructor['Decrement'] = constructor.Decrement = function(words1, words1Start, n, words2) {
+    constructor.Decrement = function(words1, words1Start, n, words2) {
         {
             var tmp = words1[words1Start];
             words1[words1Start] = ((tmp - words2) & 65535);
@@ -415,13 +415,13 @@ function(wordCount, reg, negative) {
             return 1;
         }
     };
-    constructor['TwosComplement'] = constructor.TwosComplement = function(words1, words1Start, n) {
+    constructor.TwosComplement = function(words1, words1Start, n) {
         BigInteger.Decrement(words1, words1Start, n, 1);
         for (var i = 0; i < n; ++i) {
             words1[words1Start + i] = ((~words1[words1Start + i]) & 65535);
         }
     };
-    constructor['Add'] = constructor.Add = function(c, cstart, words1, astart, words2, bstart, n) {
+    constructor.Add = function(c, cstart, words1, astart, words2, bstart, n) {
         {
             var u;
             u = 0;
@@ -434,7 +434,7 @@ function(wordCount, reg, negative) {
             return ((u|0) >>> 16);
         }
     };
-    constructor['AddOneByOne'] = constructor.AddOneByOne = function(c, cstart, words1, astart, words2, bstart, n) {
+    constructor.AddOneByOne = function(c, cstart, words1, astart, words2, bstart, n) {
         {
             var u;
             u = 0;
@@ -445,7 +445,7 @@ function(wordCount, reg, negative) {
             return ((u|0) >>> 16);
         }
     };
-    constructor['SubtractOneBiggerWords1'] = constructor.SubtractOneBiggerWords1 = function(c, cstart, words1, astart, words2, bstart, words1Count) {
+    constructor.SubtractOneBiggerWords1 = function(c, cstart, words1, astart, words2, bstart, words1Count) {
         {
             var u;
             u = 0;
@@ -461,7 +461,7 @@ function(wordCount, reg, negative) {
             return ((u >> 31) & 1);
         }
     };
-    constructor['SubtractOneBiggerWords2'] = constructor.SubtractOneBiggerWords2 = function(c, cstart, words1, astart, words2, bstart, words2Count) {
+    constructor.SubtractOneBiggerWords2 = function(c, cstart, words1, astart, words2, bstart, words2Count) {
         {
             var u;
             u = 0;
@@ -477,7 +477,7 @@ function(wordCount, reg, negative) {
             return ((u >> 31) & 1);
         }
     };
-    constructor['AddUnevenSize'] = constructor.AddUnevenSize = function(c, cstart, wordsBigger, astart, acount, wordsSmaller, bstart, bcount) {
+    constructor.AddUnevenSize = function(c, cstart, wordsBigger, astart, acount, wordsSmaller, bstart, bcount) {
         {
             var u;
             u = 0;
@@ -492,7 +492,7 @@ function(wordCount, reg, negative) {
             return ((u|0) >>> 16);
         }
     };
-    constructor['Subtract'] = constructor.Subtract = function(c, cstart, words1, astart, words2, bstart, n) {
+    constructor.Subtract = function(c, cstart, words1, astart, words2, bstart, n) {
         {
             var u;
             u = 0;
@@ -509,7 +509,7 @@ function(wordCount, reg, negative) {
             return ((u >> 31) & 1);
         }
     };
-    constructor['SubtractOneByOne'] = constructor.SubtractOneByOne = function(c, cstart, words1, astart, words2, bstart, n) {
+    constructor.SubtractOneByOne = function(c, cstart, words1, astart, words2, bstart, n) {
         {
             var u;
             u = 0;
@@ -522,7 +522,7 @@ function(wordCount, reg, negative) {
             return ((u >> 31) & 1);
         }
     };
-    constructor['LinearMultiplyAdd'] = constructor.LinearMultiplyAdd = function(productArr, cstart, words1, astart, words2, n) {
+    constructor.LinearMultiplyAdd = function(productArr, cstart, words1, astart, words2, n) {
         {
             var carry = 0;
             var bint = (words2|0) & 65535;
@@ -537,7 +537,7 @@ function(wordCount, reg, negative) {
             return carry;
         }
     };
-    constructor['LinearMultiply'] = constructor.LinearMultiply = function(productArr, cstart, words1, astart, words2, n) {
+    constructor.LinearMultiply = function(productArr, cstart, words1, astart, words2, n) {
         {
             var carry = 0;
             var bint = (words2|0) & 65535;
@@ -551,7 +551,7 @@ function(wordCount, reg, negative) {
             return carry;
         }
     };
-    constructor['BaselineSquare2'] = constructor.BaselineSquare2 = function(result, rstart, words1, astart) {
+    constructor.BaselineSquare2 = function(result, rstart, words1, astart) {
         {
             var p;
             var c;
@@ -575,7 +575,7 @@ function(wordCount, reg, negative) {
             result[rstart + 3] = ((p >> 16) & 65535);
         }
     };
-    constructor['BaselineSquare4'] = constructor.BaselineSquare4 = function(result, rstart, words1, astart) {
+    constructor.BaselineSquare4 = function(result, rstart, words1, astart) {
         {
             var p;
             var c;
@@ -647,7 +647,7 @@ function(wordCount, reg, negative) {
             result[rstart + 7] = ((p >> 16) & 65535);
         }
     };
-    constructor['BaselineSquare8'] = constructor.BaselineSquare8 = function(result, rstart, words1, astart) {
+    constructor.BaselineSquare8 = function(result, rstart, words1, astart) {
         {
             var p;
             var c;
@@ -863,7 +863,7 @@ function(wordCount, reg, negative) {
             result[rstart + 15] = ((p >> 16) & 65535);
         }
     };
-    constructor['BaselineMultiply2'] = constructor.BaselineMultiply2 = function(result, rstart, words1, astart, words2, bstart) {
+    constructor.BaselineMultiply2 = function(result, rstart, words1, astart, words2, bstart) {
         {
             var p;
             var c;
@@ -894,7 +894,7 @@ function(wordCount, reg, negative) {
         }
     };
     constructor['ShortMask'] = constructor.ShortMask = 65535;
-    constructor['BaselineMultiply4'] = constructor.BaselineMultiply4 = function(result, rstart, words1, astart, words2, bstart) {
+    constructor.BaselineMultiply4 = function(result, rstart, words1, astart, words2, bstart) {
         {
             var p;
             var c;
@@ -982,7 +982,7 @@ function(wordCount, reg, negative) {
             result[rstart + 7] = ((p >> 16) & 65535);
         }
     };
-    constructor['BaselineMultiply8'] = constructor.BaselineMultiply8 = function(result, rstart, words1, astart, words2, bstart) {
+    constructor.BaselineMultiply8 = function(result, rstart, words1, astart, words2, bstart) {
         {
             var p;
             var c;
@@ -1285,7 +1285,7 @@ function(wordCount, reg, negative) {
         }
     };
     constructor['RecursionLimit'] = constructor.RecursionLimit = 10;
-    constructor['SameSizeMultiply'] = constructor.SameSizeMultiply = function(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words2, words2Start, count) {
+    constructor.SameSizeMultiply = function(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words2, words2Start, count) {
         if (count <= BigInteger.RecursionLimit) {
             if (count == 2) {
                 BigInteger.BaselineMultiply2(resultArr, resultStart, words1, words1Start, words2, words2Start);
@@ -1389,7 +1389,7 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['RecursiveSquare'] = constructor.RecursiveSquare = function(resultArr, resultStart, tempArr, tempStart, words1, words1Start, count) {
+    constructor.RecursiveSquare = function(resultArr, resultStart, tempArr, tempStart, words1, words1Start, count) {
         if (count <= BigInteger.RecursionLimit) {
             if (count == 2) {
                 BigInteger.BaselineSquare2(resultArr, resultStart, words1, words1Start);
@@ -1412,7 +1412,7 @@ function(wordCount, reg, negative) {
             BigInteger.SameSizeMultiply(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words1, words1Start, count);
         }
     };
-    constructor['SchoolbookSquare'] = constructor.SchoolbookSquare = function(resultArr, resultStart, words1, words1Start, words1Count) {
+    constructor.SchoolbookSquare = function(resultArr, resultStart, words1, words1Start, words1Count) {
         var cstart;
         for (var i = 0; i < words1Count; ++i) {
             cstart = resultStart + i;
@@ -1433,7 +1433,7 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['SchoolbookMultiply'] = constructor.SchoolbookMultiply = function(resultArr, resultStart, words1, words1Start, words1Count, words2, words2Start, words2Count) {
+    constructor.SchoolbookMultiply = function(resultArr, resultStart, words1, words1Start, words1Count, words2, words2Start, words2Count) {
         var cstart;
         if (words1Count < words2Count) {
             for (var i = 0; i < words1Count; ++i) {
@@ -1475,7 +1475,7 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['ChunkedLinearMultiply'] = constructor.ChunkedLinearMultiply = function(productArr, cstart, tempArr, tempStart, words1, astart, acount, words2, bstart, bcount) {
+    constructor.ChunkedLinearMultiply = function(productArr, cstart, tempArr, tempStart, words1, astart, acount, words2, bstart, bcount) {
         {
             var carryPos = 0;
             for (var arrfillI = cstart; arrfillI < (cstart) + (bcount); arrfillI++) (productArr)[arrfillI] = 0;
@@ -1494,7 +1494,7 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['AsymmetricMultiply'] = constructor.AsymmetricMultiply = function(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words1Count, words2, words2Start, words2Count) {
+    constructor.AsymmetricMultiply = function(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words1Count, words2, words2Start, words2Count) {
         if (words1Count == words2Count) {
             if (words1Start == words2Start && words1 == words2) {
                 BigInteger.RecursiveSquare(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words1Count);
@@ -1582,19 +1582,19 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['MakeUint'] = constructor.MakeUint = function(first, second) {
+    constructor.MakeUint = function(first, second) {
         return ((((first & 65535) | ((second|0) << 16))|0));
     };
-    constructor['GetLowHalf'] = constructor.GetLowHalf = function(val) {
+    constructor.GetLowHalf = function(val) {
         return (val & 65535);
     };
-    constructor['GetHighHalf'] = constructor.GetHighHalf = function(val) {
+    constructor.GetHighHalf = function(val) {
         return ((val >>> 16)|0);
     };
-    constructor['GetHighHalfAsBorrow'] = constructor.GetHighHalfAsBorrow = function(val) {
+    constructor.GetHighHalfAsBorrow = function(val) {
         return ((0 - (val >>> 16))|0);
     };
-    constructor['BitPrecision'] = constructor.BitPrecision = function(numberValue) {
+    constructor.BitPrecision = function(numberValue) {
         if (numberValue == 0) {
             return 0;
         }
@@ -1618,7 +1618,7 @@ function(wordCount, reg, negative) {
         }
         return i;
     };
-    constructor['Divide32By16'] = constructor.Divide32By16 = function(dividendLow, divisorShort, returnRemainder) {
+    constructor.Divide32By16 = function(dividendLow, divisorShort, returnRemainder) {
         var tmpInt;
         var dividendHigh = 0;
         var intDivisor = (divisorShort|0) & 65535;
@@ -1637,7 +1637,7 @@ function(wordCount, reg, negative) {
         }
         return returnRemainder ? (dividendHigh & 65535) : (dividendLow & 65535);
     };
-    constructor['DivideUnsigned'] = constructor.DivideUnsigned = function(x, y) {
+    constructor.DivideUnsigned = function(x, y) {
         {
             if ((x >> 31) == 0) {
                 var iy = (y|0) & 65535;
@@ -1646,13 +1646,13 @@ function(wordCount, reg, negative) {
             return BigInteger.Divide32By16(x, y, false);
         }
     };
-    constructor['RemainderUnsigned'] = constructor.RemainderUnsigned = function(x, y) {
+    constructor.RemainderUnsigned = function(x, y) {
         {
             var iy = (y|0) & 65535;
             return ((x >> 31) == 0) ? (((x|0) % iy) & 65535) : BigInteger.Divide32By16(x, y, true);
         }
     };
-    constructor['DivideThreeWordsByTwo'] = constructor.DivideThreeWordsByTwo = function(words1, words1Start, valueB0, valueB1) {
+    constructor.DivideThreeWordsByTwo = function(words1, words1Start, valueB0, valueB1) {
         var valueQ;
         {
             valueQ = (((valueB1 + 1)|0) == 0) ? words1[words1Start + 2] : ((valueB1 != 0) ? BigInteger.DivideUnsigned(BigInteger.MakeUint(words1[words1Start + 1], words1[words1Start + 2]), (((valueB1|0) + 1) & 65535)) : BigInteger.DivideUnsigned(BigInteger.MakeUint(words1[words1Start], words1[words1Start + 1]), valueB0));
@@ -1676,7 +1676,7 @@ function(wordCount, reg, negative) {
         }
         return valueQ;
     };
-    constructor['DivideFourWordsByTwo'] = constructor.DivideFourWordsByTwo = function(quotient, quotientStart, words1, words1Start, word2A, word2B, temp) {
+    constructor.DivideFourWordsByTwo = function(quotient, quotientStart, words1, words1Start, word2A, word2B, temp) {
         if (word2A == 0 && word2B == 0) {
             quotient[quotientStart] = (words1[words1Start + 2] & 65535);
             quotient[quotientStart + 1] = (words1[words1Start + 3] & 65535);
@@ -1691,7 +1691,7 @@ function(wordCount, reg, negative) {
             quotient[quotientStart + 1] = (valueQ1 & 65535);
         }
     };
-    constructor['AtomicMultiplyOpt'] = constructor.AtomicMultiplyOpt = function(c, valueCstart, valueA0, valueA1, words2, words2Start, istart, iend) {
+    constructor.AtomicMultiplyOpt = function(c, valueCstart, valueA0, valueA1, words2, words2Start, istart, iend) {
         var s;
         var d;
         var first1MinusFirst0 = ((valueA1|0) - valueA0) & 65535;
@@ -1711,15 +1711,15 @@ function(wordCount, reg, negative) {
                         d = (s & 65535) * (((valueB0|0) - valueB1) & 65535);
                     }
                     var valueA0B0 = valueA0 * valueB0;
-                    c[csi] = ((valueA0B0 & 65535) & 65535);
+                    c[csi] = (valueA0B0 & 65535);
                     var a0b0high = (valueA0B0 >>> 16);
                     var valueA1B1 = valueA1 * valueB1;
                     var tempInt;
                     tempInt = a0b0high + (valueA0B0 & 65535) + (d & 65535) + (valueA1B1 & 65535);
-                    c[csi + 1] = ((tempInt & 65535) & 65535);
+                    c[csi + 1] = (tempInt & 65535);
                     tempInt = valueA1B1 + ((tempInt >> 16) & 65535) + a0b0high + ((d >> 16) & 65535) + ((valueA1B1 >> 16) & 65535) - (s & 65535);
-                    c[csi + 2] = ((tempInt & 65535) & 65535);
-                    c[csi + 3] = ((((tempInt >> 16) & 65535) & 65535));
+                    c[csi + 2] = (tempInt & 65535);
+                    c[csi + 3] = ((tempInt >> 16) & 65535);
                 }
             } else {
                 for (var i = istart; i < iend; i += 4) {
@@ -1735,19 +1735,19 @@ function(wordCount, reg, negative) {
                     }
                     var valueA0B0 = valueA0 * valueB0;
                     var a0b0high = (valueA0B0 >>> 16);
-                    c[csi] = ((valueA0B0 & 65535) & 65535);
+                    c[csi] = (valueA0B0 & 65535);
                     var valueA1B1 = valueA1 * valueB1;
                     var tempInt;
                     tempInt = a0b0high + (valueA0B0 & 65535) + (d & 65535) + (valueA1B1 & 65535);
-                    c[csi + 1] = ((tempInt & 65535) & 65535);
+                    c[csi + 1] = (tempInt & 65535);
                     tempInt = valueA1B1 + ((tempInt >> 16) & 65535) + a0b0high + ((d >> 16) & 65535) + ((valueA1B1 >> 16) & 65535) - (s & 65535);
-                    c[csi + 2] = ((tempInt & 65535) & 65535);
-                    c[csi + 3] = ((((tempInt >> 16) & 65535) & 65535));
+                    c[csi + 2] = (tempInt & 65535);
+                    c[csi + 3] = ((tempInt >> 16) & 65535);
                 }
             }
         }
     };
-    constructor['AtomicMultiplyAddOpt'] = constructor.AtomicMultiplyAddOpt = function(c, valueCstart, valueA0, valueA1, words2, words2Start, istart, iend) {
+    constructor.AtomicMultiplyAddOpt = function(c, valueCstart, valueA0, valueA1, words2, words2Start, istart, iend) {
         var s;
         var d;
         var first1MinusFirst0 = ((valueA1|0) - valueA0) & 65535;
@@ -1770,16 +1770,16 @@ function(wordCount, reg, negative) {
                     var a0b0high = (valueA0B0 >>> 16);
                     var tempInt;
                     tempInt = valueA0B0 + (c[csi] & 65535);
-                    c[csi] = ((tempInt & 65535) & 65535);
+                    c[csi] = (tempInt & 65535);
                     var valueA1B1 = valueA1 * b1;
                     var a1b1low = valueA1B1 & 65535;
                     var a1b1high = ((valueA1B1 >> 16)|0) & 65535;
                     tempInt = ((tempInt >> 16) & 65535) + (valueA0B0 & 65535) + (d & 65535) + a1b1low + (c[csi + 1] & 65535);
-                    c[csi + 1] = ((tempInt & 65535) & 65535);
+                    c[csi + 1] = (tempInt & 65535);
                     tempInt = ((tempInt >> 16) & 65535) + a1b1low + a0b0high + ((d >> 16) & 65535) + a1b1high - (s & 65535) + (c[csi + 2] & 65535);
-                    c[csi + 2] = ((tempInt & 65535) & 65535);
+                    c[csi + 2] = (tempInt & 65535);
                     tempInt = ((tempInt >> 16) & 65535) + a1b1high + (c[csi + 3] & 65535);
-                    c[csi + 3] = ((tempInt & 65535) & 65535);
+                    c[csi + 3] = (tempInt & 65535);
                     if ((tempInt >> 16) != 0) {
                         c[csi + 4] = ((c[csi + 4] + 1) & 65535);
                         c[csi + 5] = (((((c[csi + 5] + (((c[csi + 4] == 0) ? 1 : 0)|0)) & 65535))|0));
@@ -1801,16 +1801,16 @@ function(wordCount, reg, negative) {
                     var a0b0high = (valueA0B0 >>> 16);
                     var tempInt;
                     tempInt = valueA0B0 + (c[csi] & 65535);
-                    c[csi] = ((tempInt & 65535) & 65535);
+                    c[csi] = (tempInt & 65535);
                     var valueA1B1 = valueA1 * valueB1;
                     var a1b1low = valueA1B1 & 65535;
                     var a1b1high = (valueA1B1 >>> 16);
                     tempInt = ((tempInt >> 16) & 65535) + (valueA0B0 & 65535) + (d & 65535) + a1b1low + (c[csi + 1] & 65535);
-                    c[csi + 1] = ((tempInt & 65535) & 65535);
+                    c[csi + 1] = (tempInt & 65535);
                     tempInt = ((tempInt >> 16) & 65535) + a1b1low + a0b0high + ((d >> 16) & 65535) + a1b1high - (s & 65535) + (c[csi + 2] & 65535);
-                    c[csi + 2] = ((tempInt & 65535) & 65535);
+                    c[csi + 2] = (tempInt & 65535);
                     tempInt = ((tempInt >> 16) & 65535) + a1b1high + (c[csi + 3] & 65535);
-                    c[csi + 3] = ((tempInt & 65535) & 65535);
+                    c[csi + 3] = (tempInt & 65535);
                     if ((tempInt >> 16) != 0) {
                         c[csi + 4] = ((c[csi + 4] + 1) & 65535);
                         c[csi + 5] = (((((c[csi + 5] + (((c[csi + 4] == 0) ? 1 : 0)|0)) & 65535))|0));
@@ -1819,7 +1819,7 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['Divide'] = constructor.Divide = function(remainderArr, remainderStart, quotientArr, quotientStart, tempArr, tempStart, words1, words1Start, words1Count, words2, words2Start, words2Count) {
+    constructor.Divide = function(remainderArr, remainderStart, quotientArr, quotientStart, tempArr, tempStart, words1, words1Start, words1Count, words2, words2Start, words2Count) {
         if (words2Count == 0) {
             throw new Error("division by zero");
         }
@@ -1904,7 +1904,7 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['RoundupSize'] = constructor.RoundupSize = function(n) {
+    constructor.RoundupSize = function(n) {
         return n + (n & 1);
     };
     prototype['negative'] = prototype.negative = null;
@@ -1934,7 +1934,7 @@ function(wordCount, reg, negative) {
             for (var i = 0; i < len; i += 2, j++) {
                 var index = littleEndian ? i : len - 1 - i;
                 var index2 = littleEndian ? i + 1 : len - 2 - i;
-                newreg[j] = ((bytes[index] & 255) & 65535);
+                newreg[j] = (bytes[index] & 255);
                 if (index2 >= 0 && index2 < len) {
                     newreg[j] = (((((newreg[j] | (((((bytes[index2])|0) << 8)|0))) & 65535))|0));
                 }
@@ -1943,7 +1943,7 @@ function(wordCount, reg, negative) {
             for (var i = 0; i < len; i += 2, j++) {
                 var index = littleEndian ? i : len - 1 - i;
                 var index2 = littleEndian ? i + 1 : len - 2 - i;
-                newreg[j] = ((bytes[index] & 255) & 65535);
+                newreg[j] = (bytes[index] & 255);
                 if (index2 >= 0 && index2 < len) {
                     newreg[j] = (((((newreg[j] | (((((bytes[index2])|0) << 8)|0))) & 65535))|0));
                 } else {
@@ -2007,7 +2007,7 @@ function(wordCount, reg, negative) {
         }
         return this.GetUnsignedBit(index);
     };
-    prototype['GetUnsignedBit'] = prototype.GetUnsignedBit = function(n) {
+    prototype.GetUnsignedBit = function(n) {
         return ((n >> 4) < this.words.length) && ((((this.words[n >> 4] >> (n & 15)) & 1) != 0));
     };
 
@@ -2293,7 +2293,7 @@ function(wordCount, reg, negative) {
         }
         return true;
     };
-    prototype['HasSmallValue'] = prototype.HasSmallValue = function() {
+    prototype.HasSmallValue = function() {
         var c = ((this.wordCount)|0);
         if (c > 4) {
             return false;
@@ -2380,7 +2380,7 @@ function(wordCount, reg, negative) {
     prototype['abs'] = prototype.abs = function() {
         return (this.wordCount == 0 || !this.negative) ? this : new BigInteger(this.wordCount, this.words, false);
     };
-    prototype['ByteCount'] = prototype.ByteCount = function() {
+    prototype.ByteCount = function() {
         var wc = this.wordCount;
         if (wc == 0) {
             return 0;
@@ -2420,7 +2420,7 @@ function(wordCount, reg, negative) {
         }
         return 0;
     };
-    constructor['getUnsignedBitLengthEx'] = constructor.getUnsignedBitLengthEx = function(numberValue, wordCount) {
+    constructor.getUnsignedBitLengthEx = function(numberValue, wordCount) {
         var wc = wordCount;
         if (wc != 0) {
             wc = (wc - 1) << 4;
@@ -2481,7 +2481,7 @@ function(wordCount, reg, negative) {
         return 0;
     };
     constructor['HexChars'] = constructor.HexChars = "0123456789ABCDEF";
-    constructor['ReverseChars'] = constructor.ReverseChars = function(chars, offset, length) {
+    constructor.ReverseChars = function(chars, offset, length) {
         var half = length >> 1;
         var right = offset + length - 1;
         for (var i = 0; i < half; i++, right--) {
@@ -2490,7 +2490,7 @@ function(wordCount, reg, negative) {
             chars[right] = value;
         }
     };
-    prototype['SmallValueToString'] = prototype.SmallValueToString = function() {
+    prototype.SmallValueToString = function() {
         var value = this.longValue();
         if (value.equals(JSInteropFactory.LONG_MIN_VALUE())) {
             return "-9223372036854775808";
@@ -2517,7 +2517,7 @@ function(wordCount, reg, negative) {
         for (var arrfillI = 0; arrfillI < count; arrfillI++) tmpbuilder.append(chars[arrfillI]);
         return tmpbuilder.toString();
     };
-    constructor['ApproxLogTenOfTwo'] = constructor.ApproxLogTenOfTwo = function(bitlen) {
+    constructor.ApproxLogTenOfTwo = function(bitlen) {
         var bitlenLow = bitlen & 65535;
         var bitlenHigh = (bitlen >>> 16);
         var resultLow = 0;
@@ -2830,7 +2830,7 @@ function(wordCount, reg, negative) {
                 smallInt = smallInt + (digit);
             } else {
                 if (haveSmallInt) {
-                    bigint[0] = ((smallInt & 65535) & 65535);
+                    bigint[0] = (smallInt & 65535);
                     bigint[1] = ((smallInt >>> 16) & 65535);
                     haveSmallInt = false;
                 }
@@ -2864,7 +2864,7 @@ function(wordCount, reg, negative) {
             throw new Error("No digits");
         }
         if (haveSmallInt) {
-            bigint[0] = ((smallInt & 65535) & 65535);
+            bigint[0] = (smallInt & 65535);
             bigint[1] = ((smallInt >>> 16) & 65535);
         }
         var count = BigInteger.CountWords(bigint, bigint.length);
@@ -3199,10 +3199,10 @@ function(wordCount, reg, negative) {
         }
         return new BigInteger(productwordCount, productreg, this.negative ^ bigintMult.negative);
     };
-    constructor['BitsToWords'] = constructor.BitsToWords = function(bitCount) {
+    constructor.BitsToWords = function(bitCount) {
         return (bitCount + 15) >> 4;
     };
-    constructor['FastRemainder'] = constructor.FastRemainder = function(dividendReg, count, divisorSmall) {
+    constructor.FastRemainder = function(dividendReg, count, divisorSmall) {
         var i = count;
         var remainder = 0;
         while ((i--) > 0) {
@@ -3210,7 +3210,7 @@ function(wordCount, reg, negative) {
         }
         return remainder;
     };
-    constructor['FastDivide'] = constructor.FastDivide = function(quotientReg, dividendReg, count, divisorSmall) {
+    constructor.FastDivide = function(quotientReg, dividendReg, count, divisorSmall) {
         var i = count;
         var remainderShort = 0;
         var idivisor = (divisorSmall|0) & 65535;
@@ -3232,7 +3232,7 @@ function(wordCount, reg, negative) {
             }
         }
     };
-    constructor['FastDivideAndRemainder'] = constructor.FastDivideAndRemainder = function(quotientReg, quotientStart, dividendReg, dividendStart, count, divisorSmall) {
+    constructor.FastDivideAndRemainder = function(quotientReg, quotientStart, dividendReg, dividendStart, count, divisorSmall) {
         var i = count;
         var remainderShort = 0;
         var idivisor = (divisorSmall|0) & 65535;
@@ -3419,7 +3419,7 @@ function(wordCount, reg, negative) {
         remainderReg = BigInteger.ShortenArray(remainderReg, count);
         return new BigInteger(count, remainderReg, this.negative);
     };
-    prototype['PositiveCompare'] = prototype.PositiveCompare = function(t) {
+    prototype.PositiveCompare = function(t) {
         var size = this.wordCount, tempSize = t.wordCount;
         return (size == tempSize) ? BigInteger.Compare(this.words, 0, t.words, 0, (size|0)) : (size > tempSize ? 1 : -1);
     };
