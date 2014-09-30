@@ -2902,8 +2902,8 @@ function(wordCount, reg, negative) {
         if (thisValue.equals(BigInteger.ONE)) {
             return thisValue;
         }
-        var expOfTwo = (this.getLowestSetBit() < bigintSecond.getLowestSetBit() ? this.getLowestSetBit() : bigintSecond.getLowestSetBit());
         if (thisValue.wordCount <= 10 && bigintSecond.wordCount <= 10) {
+            var expOfTwo = (thisValue.getLowestSetBit() < bigintSecond.getLowestSetBit() ? thisValue.getLowestSetBit() : bigintSecond.getLowestSetBit());
             while (true) {
                 var bigintA = (thisValue.subtract(bigintSecond)).abs();
                 if (bigintA.signum() == 0) {
