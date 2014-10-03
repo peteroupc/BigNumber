@@ -1,0 +1,26 @@
+{
+"name": "bignumber-petero",
+"version": "1.0.0",
+"author": "Peter Occil",
+"license": "CC0",
+"homepage": "https://github.com/peteroupc/BigNumber",
+"description": "An arbitrary-precision arithmetic library for JavaScript",
+"main": "./BigNumberMin.js",
+"repository": {
+"type": "git",
+"url": "https://github.com/peteroupc/BigNumber"
+},
+"scripts": {
+"test": "./BigTest.js",
+},
+"keywords": [
+"biginteger",
+"extendeddecimal",
+"extendedfloat",
+"arithmetic",
+"numbers"
+],
+"bugs": {
+"url": "https://github.com/peteroupc/BigNumber/issues"
+},
+}
