@@ -7,7 +7,7 @@
   "license": "CC0",
   "homepage": "https://github.com/peteroupc/BigNumber",
   "description": "An arbitrary-precision arithmetic library for JavaScript",
-  "main": "BigNumberMin",
+  "main": "./BigNumberMin",
   "repository": {
     "type": "git",
     "url": "git@github.com/peteroupc/BigNumber"
