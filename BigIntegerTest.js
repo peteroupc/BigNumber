@@ -1,6 +1,6 @@
-var BigInteger=require("./BigNumber.js").BigInteger,
+var BigInteger=require("./BigNumberMin.js").BigInteger,
   Assert=require("./Assert.js"),
-  DecimalFraction=require("./BigNumber.js").DecimalFraction,
+  DecimalFraction=require("./BigNumberMin.js").DecimalFraction,
   sys=require("sys");
 
 function bigIntegerFromString(a){
