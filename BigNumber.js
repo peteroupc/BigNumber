@@ -893,7 +893,7 @@ function(wordCount, reg, negative) {
             result[rstart + 3] = (((p >> 16) & 65535));
         }
     };
-    constructor['ShortMask'] = constructor.ShortMask = 65535;
+    constructor.ShortMask = 65535;
     constructor.BaselineMultiply4 = function(result, rstart, words1, astart, words2, bstart) {
         {
             var p;
@@ -1284,7 +1284,7 @@ function(wordCount, reg, negative) {
             result[rstart + 15] = (((p >> 16) & 65535));
         }
     };
-    constructor['RecursionLimit'] = constructor.RecursionLimit = 10;
+    constructor.RecursionLimit = 10;
     constructor.SameSizeMultiply = function(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words2, words2Start, count) {
         if (count <= BigInteger.RecursionLimit) {
             if (count == 2) {
@@ -1963,13 +1963,13 @@ function(wordCount, reg, negative) {
         }
         return (newwordCount == 0) ? BigInteger.ZERO : (new BigInteger(newwordCount, newreg, newnegative));
     };
-    constructor['GrowForCarry'] = constructor.GrowForCarry = function(a, carry) {
+    constructor.GrowForCarry = function(a, carry) {
         var oldLength = a.length;
         var ret = BigInteger.CleanGrow(a, BigInteger.RoundupSize(oldLength + 1));
         ret[oldLength] = (carry & 65535);
         return ret;
     };
-    constructor['CleanGrow'] = constructor.CleanGrow = function(a, size) {
+    constructor.CleanGrow = function(a, size) {
         if (size > a.length) {
             var newa = [];
             for (var arrfillI = 0; arrfillI < size; arrfillI++) newa[arrfillI] = 0;
@@ -2480,7 +2480,7 @@ function(wordCount, reg, negative) {
         }
         return 0;
     };
-    constructor['HexChars'] = constructor.HexChars = "0123456789ABCDEF";
+    constructor.HexChars = "0123456789ABCDEF";
     constructor.ReverseChars = function(chars, offset, length) {
         var half = length >> 1;
         var right = offset + length - 1;
@@ -2785,7 +2785,7 @@ function(wordCount, reg, negative) {
         }
         return BigInteger.fromSubstring(str, 0, str.length);
     };
-    constructor['MaxSafeInt'] = constructor.MaxSafeInt = 214748363;
+    constructor.MaxSafeInt = 214748363;
 
     constructor['fromSubstring'] = constructor.fromSubstring = function(str, index, endIndex) {
         if (str == null) {
@@ -3116,7 +3116,7 @@ function(wordCount, reg, negative) {
         }
         return (this.wordCount == 0) ? subtrahend.negate() : ((subtrahend.wordCount == 0) ? this : this.add(subtrahend.negate()));
     };
-    constructor['ShortenArray'] = constructor.ShortenArray = function(reg, wordCount) {
+    constructor.ShortenArray = function(reg, wordCount) {
         if (reg.length > 32) {
             var newLength = BigInteger.RoundupSize(wordCount);
             if (newLength < reg.length && (reg.length - newLength) >= 16) {
@@ -9165,7 +9165,7 @@ function(flag, ctx, result) {
     this.result = result;
 };
 (function(constructor,prototype){
-    constructor['serialVersionUID'] = constructor.serialVersionUID = 1;
+    constructor.serialVersionUID = 1;
     prototype['result'] = prototype.result = null;
     prototype['ctx'] = prototype.ctx = null;
     prototype['getContext'] = prototype.getContext = function() {
@@ -10148,7 +10148,7 @@ function(unsignedMantissa, exponent, flags) {
     this.flags = flags;
 };
 (function(constructor,prototype){
-    constructor['MaxSafeInt'] = constructor.MaxSafeInt = 214748363;
+    constructor.MaxSafeInt = 214748363;
     prototype['exponent'] = prototype.exponent = null;
     prototype['unsignedMantissa'] = prototype.unsignedMantissa = null;
     prototype['flags'] = prototype.flags = null;
@@ -10186,7 +10186,7 @@ function(unsignedMantissa, exponent, flags) {
         var sign = mantissa.signum();
         return new ExtendedDecimal(sign < 0 ? ((mantissa).negate()) : mantissa, exponent, (sign < 0) ? BigNumberFlags.FlagNegative : 0);
     };
-    constructor['CreateWithFlags'] = constructor.CreateWithFlags = function(mantissa, exponent, flags) {
+    constructor.CreateWithFlags = function(mantissa, exponent, flags) {
         if (mantissa == null) {
             throw new Error("mantissa");
         }
@@ -11400,7 +11400,7 @@ var tmpoffset = offset;
         }
         return this.Add(negated, ctx);
     };
-    constructor['MathValue'] = constructor.MathValue = new TrappableRadixMath(new ExtendedOrSimpleRadixMath(new ExtendedDecimal.DecimalMathHelper()));
+    constructor.MathValue = new TrappableRadixMath(new ExtendedOrSimpleRadixMath(new ExtendedDecimal.DecimalMathHelper()));
 
     prototype['DivideToIntegerNaturalScale'] = prototype.DivideToIntegerNaturalScale = function(divisor, ctx) {
         return ExtendedDecimal.MathValue.DivideToIntegerNaturalScale(this, divisor, ctx);
@@ -11624,7 +11624,7 @@ function(unsignedMantissa, exponent, flags) {
         var sign = mantissa.signum();
         return new ExtendedFloat(sign < 0 ? ((mantissa).negate()) : mantissa, exponent, (sign < 0) ? BigNumberFlags.FlagNegative : 0);
     };
-    constructor['CreateWithFlags'] = constructor.CreateWithFlags = function(mantissa, exponent, flags) {
+    constructor.CreateWithFlags = function(mantissa, exponent, flags) {
         if (mantissa == null) {
             throw new Error("mantissa");
         }
@@ -12182,7 +12182,7 @@ if (str == null) {
         }
         return this.Add(negated, ctx);
     };
-    constructor['MathValue'] = constructor.MathValue = new TrappableRadixMath(new ExtendedOrSimpleRadixMath(new ExtendedFloat.BinaryMathHelper()));
+    constructor.MathValue = new TrappableRadixMath(new ExtendedOrSimpleRadixMath(new ExtendedFloat.BinaryMathHelper()));
 
     prototype['DivideToIntegerNaturalScale'] = prototype.DivideToIntegerNaturalScale = function(divisor, ctx) {
         return ExtendedFloat.MathValue.DivideToIntegerNaturalScale(this, divisor, ctx);
