@@ -1,3 +1,5 @@
 .gitattributes
 *.rb
+.git/
+.gitignore
 runtime.js

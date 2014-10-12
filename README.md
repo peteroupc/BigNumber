@@ -10,6 +10,12 @@ To install, run the following:
 
     npm install peteroupc/BigNumber
     
+or
+
+    npm install bignumber-petero
+    
+You may need to install the latest version of Node.js or use `npm` version 1.3.15 or later.
+    
 Usage
 --------------
 
