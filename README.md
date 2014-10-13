@@ -29,3 +29,10 @@ Usage
 For API documentation, see the [CBOR-Java wiki](https://github.com/peteroupc/CBOR-Java/wiki).
 Although the wiki describes the Java version, the JavaScript version uses essentially
 the same methods for BigInteger, ExtendedDecimal, and ExtendedFloat.
+
+History
+------------
+
+Version 1.1
+
+- Added fromRadixString, fromRadixSubstring, and toRadixString methods to BigInteger.
