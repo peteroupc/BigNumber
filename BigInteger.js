@@ -2486,7 +2486,6 @@ function(wordCount, reg, negative) {
         }
         return 0;
     };
-    constructor.HexChars = "0123456789ABCDEF";
     constructor.ReverseChars = function(chars, offset, length) {
         var half = length >> 1;
         var right = offset + length - 1;
@@ -2510,7 +2509,7 @@ function(wordCount, reg, negative) {
             value = value.negate();
         }
         while (value.signum() != 0) {
-            var digit = BigInteger.HexChars.charAt(value.remainderWithUnsignedDivisor(10).intValue());
+            var digit = BigInteger.Digits.charAt(value.remainderWithUnsignedDivisor(10).intValue());
             chars[count++] = digit;
             value = value.divideWithUnsignedDivisor(10);
         }
@@ -2705,84 +2704,206 @@ function(wordCount, reg, negative) {
         }
         return i;
     };
+    constructor.Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    prototype['toRadixString'] = prototype.toRadixString = function(radix) {
+        if (radix < 2) {
+            throw new Error("radix (" + radix + ") is less than 2");
+        }
+        if (radix > 36) {
+            throw new Error("radix (" + radix + ") is more than 36");
+        }
+        if (this.wordCount == 0) {
+            return "0";
+        }
+        if (radix == 10) {
+            if (this.HasSmallValue()) {
+                return this.SmallValueToString();
+            }
+            var tempReg = [];
+            for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) tempReg[arrfillI] = 0;
+            for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) (tempReg)[0 + arrfillI] = this.words[0 + arrfillI];
+            var numWordCount = tempReg.length;
+            while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
+                --numWordCount;
+            }
+            var i = 0;
+            var s = [];
+            for (var arrfillI = 0; arrfillI < (numWordCount << 4) + 1; arrfillI++) s[arrfillI] = 0;
+            while (numWordCount != 0) {
+                if (numWordCount == 1 && tempReg[0] > 0 && tempReg[0] <= 32767) {
+                    var rest = tempReg[0];
+                    while (rest != 0) {
+
+                        var newrest = (rest * 26215) >> 18;
+                        s[i++] = BigInteger.Digits.charAt(rest - (newrest * 10));
+                        rest = newrest;
+                    }
+                    break;
+                }
+                if (numWordCount == 2 && tempReg[1] > 0 && tempReg[1] <= 32767) {
+                    var rest = (tempReg[0]) & 65535;
+                    rest |= ((tempReg[1]) & 65535) << 16;
+                    while (rest != 0) {
+                        var newrest = ((rest / 10)|0);
+                        s[i++] = BigInteger.Digits.charAt(rest - (newrest * 10));
+                        rest = newrest;
+                    }
+                    break;
+                } else {
+                    var wci = numWordCount;
+                    var remainderShort = 0;
+                    var quo, rem;
+
+                    while ((wci--) > 0) {
+                        var currentDividend = (((((tempReg[wci]) & 65535) | ((remainderShort|0) << 16))|0));
+                        quo = ((currentDividend / 10000)|0);
+                        tempReg[wci] = (quo & 65535);
+                        rem = currentDividend - (10000 * quo);
+                        remainderShort = (rem|0);
+                    }
+                    var remainderSmall = remainderShort;
+
+                    while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
+                        --numWordCount;
+                    }
+
+                    var newrest = (remainderSmall * 3277) >> 15;
+                    s[i++] = BigInteger.Digits.charAt((remainderSmall - (newrest * 10))|0);
+                    remainderSmall = newrest;
+                    newrest = (remainderSmall * 3277) >> 15;
+                    s[i++] = BigInteger.Digits.charAt((remainderSmall - (newrest * 10))|0);
+                    remainderSmall = newrest;
+                    newrest = (remainderSmall * 3277) >> 15;
+                    s[i++] = BigInteger.Digits.charAt((remainderSmall - (newrest * 10))|0);
+                    remainderSmall = newrest;
+                    s[i++] = BigInteger.Digits.charAt(remainderSmall);
+                }
+            }
+            BigInteger.ReverseChars(s, 0, i);
+            if (this.negative) {
+                var sb = JSInteropFactory.createStringBuilder(i + 1);
+                sb.append('-');
+                for (var arrfillI = 0; arrfillI < (0) + (i); arrfillI++) sb.append(s[arrfillI]);
+                return sb.toString();
+            }
+            var tmpbuilder = JSInteropFactory.createStringBuilder(16);
+            for (var arrfillI = 0; arrfillI < i; arrfillI++) tmpbuilder.append(s[arrfillI]);
+            return tmpbuilder.toString();
+        }
+        if (radix == 16) {
+            var sb = JSInteropFactory.createStringBuilder(16);
+            if (this.negative) {
+                sb.append('-');
+            }
+            var firstBit = true;
+            var word = this.words[this.wordCount - 1];
+            for (var i = 0; i < 4; ++i) {
+                if (!firstBit || (word & 61440) != 0) {
+                    sb.append(BigInteger.Digits.charAt((word >> 12) & 15));
+                    firstBit = false;
+                }
+                word <<= 4;
+            }
+            for (var j = this.wordCount - 2; j >= 0; --j) {
+                word = this.words[j];
+                for (var i = 0; i < 4; ++i) {
+                    sb.append(BigInteger.Digits.charAt((word >> 12) & 15));
+                    word <<= 4;
+                }
+            }
+            return sb.toString();
+        }
+        if (radix == 2) {
+            var sb = JSInteropFactory.createStringBuilder(16);
+            if (this.negative) {
+                sb.append('-');
+            }
+            var firstBit = true;
+            var word = this.words[this.wordCount - 1];
+            for (var i = 0; i < 16; ++i) {
+                if (!firstBit || (word & 32768) != 0) {
+                    sb.append((word & 32768) == 0 ? '0' : '1');
+                    firstBit = false;
+                }
+                word <<= 1;
+            }
+            for (var j = this.wordCount - 2; j >= 0; --j) {
+                word = this.words[j];
+                for (var i = 0; i < 16; ++i) {
+                    sb.append((word & 32768) == 0 ? '0' : '1');
+                    word <<= 1;
+                }
+            }
+            return sb.toString();
+        } else {
+            var tempReg = [];
+            for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) tempReg[arrfillI] = 0;
+            for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) (tempReg)[0 + arrfillI] = this.words[0 + arrfillI];
+            var numWordCount = tempReg.length;
+            while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
+                --numWordCount;
+            }
+            var i = 0;
+            var s = [];
+            for (var arrfillI = 0; arrfillI < (numWordCount << 4) + 1; arrfillI++) s[arrfillI] = 0;
+            while (numWordCount != 0) {
+                if (numWordCount == 1 && tempReg[0] > 0 && tempReg[0] <= 32767) {
+                    var rest = tempReg[0];
+                    while (rest != 0) {
+                        var newrest = ((rest / radix)|0);
+                        s[i++] = BigInteger.Digits.charAt(rest - (newrest * radix));
+                        rest = newrest;
+                    }
+                    break;
+                }
+                if (numWordCount == 2 && tempReg[1] > 0 && tempReg[1] <= 32767) {
+                    var rest = (tempReg[0]) & 65535;
+                    rest |= ((tempReg[1]) & 65535) << 16;
+                    while (rest != 0) {
+                        var newrest = ((rest / radix)|0);
+                        s[i++] = BigInteger.Digits.charAt(rest - (newrest * radix));
+                        rest = newrest;
+                    }
+                    break;
+                } else {
+                    var wci = numWordCount;
+                    var remainderShort = 0;
+                    var quo, rem;
+
+                    while ((wci--) > 0) {
+                        var currentDividend = (((((tempReg[wci]) & 65535) | ((remainderShort|0) << 16))|0));
+                        quo = ((currentDividend / radix)|0);
+                        tempReg[wci] = (quo & 65535);
+                        rem = currentDividend - (radix * quo);
+                        remainderShort = (rem|0);
+                    }
+                    var remainderSmall = remainderShort;
+
+                    while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
+                        --numWordCount;
+                    }
+                    s[i++] = BigInteger.Digits.charAt(remainderSmall);
+                }
+            }
+            BigInteger.ReverseChars(s, 0, i);
+            if (this.negative) {
+                var sb = JSInteropFactory.createStringBuilder(i + 1);
+                sb.append('-');
+                for (var arrfillI = 0; arrfillI < (0) + (i); arrfillI++) sb.append(s[arrfillI]);
+                return sb.toString();
+            }
+            var tmpbuilder = JSInteropFactory.createStringBuilder(16);
+            for (var arrfillI = 0; arrfillI < i; arrfillI++) tmpbuilder.append(s[arrfillI]);
+            return tmpbuilder.toString();
+        }
+    };
 
     prototype['toString'] = prototype.toString = function() {
         if (this.signum() == 0) {
             return "0";
         }
-        if (this.HasSmallValue()) {
-            return this.SmallValueToString();
-        }
-        var tempReg = [];
-        for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) tempReg[arrfillI] = 0;
-        for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) (tempReg)[0 + arrfillI] = this.words[0 + arrfillI];
-        var numWordCount = tempReg.length;
-        while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
-            --numWordCount;
-        }
-        var i = 0;
-        var s = [];
-        for (var arrfillI = 0; arrfillI < (numWordCount << 4) + 1; arrfillI++) s[arrfillI] = 0;
-        while (numWordCount != 0) {
-            if (numWordCount == 1 && tempReg[0] > 0 && tempReg[0] <= 32767) {
-                var rest = tempReg[0];
-                while (rest != 0) {
-
-                    var newrest = (rest * 26215) >> 18;
-                    s[i++] = BigInteger.HexChars.charAt(rest - (newrest * 10));
-                    rest = newrest;
-                }
-                break;
-            }
-            if (numWordCount == 2 && tempReg[1] > 0 && tempReg[1] <= 32767) {
-                var rest = (tempReg[0]) & 65535;
-                rest |= ((tempReg[1]) & 65535) << 16;
-                while (rest != 0) {
-                    var newrest = ((rest / 10)|0);
-                    s[i++] = BigInteger.HexChars.charAt(rest - (newrest * 10));
-                    rest = newrest;
-                }
-                break;
-            } else {
-                var wci = numWordCount;
-                var remainderShort = 0;
-                var quo, rem;
-
-                while ((wci--) > 0) {
-                    var currentDividend = (((((tempReg[wci]) & 65535) | ((remainderShort|0) << 16))|0));
-                    quo = ((currentDividend / 10000)|0);
-                    tempReg[wci] = (quo & 65535);
-                    rem = currentDividend - (10000 * quo);
-                    remainderShort = (rem|0);
-                }
-                var remainderSmall = remainderShort;
-
-                while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
-                    --numWordCount;
-                }
-
-                var newrest = (remainderSmall * 3277) >> 15;
-                s[i++] = BigInteger.HexChars.charAt((remainderSmall - (newrest * 10))|0);
-                remainderSmall = newrest;
-                newrest = (remainderSmall * 3277) >> 15;
-                s[i++] = BigInteger.HexChars.charAt((remainderSmall - (newrest * 10))|0);
-                remainderSmall = newrest;
-                newrest = (remainderSmall * 3277) >> 15;
-                s[i++] = BigInteger.HexChars.charAt((remainderSmall - (newrest * 10))|0);
-                remainderSmall = newrest;
-                s[i++] = BigInteger.HexChars.charAt(remainderSmall);
-            }
-        }
-        BigInteger.ReverseChars(s, 0, i);
-        if (this.negative) {
-            var sb = JSInteropFactory.createStringBuilder(i + 1);
-            sb.append('-');
-            for (var arrfillI = 0; arrfillI < (0) + (i); arrfillI++) sb.append(s[arrfillI]);
-            return sb.toString();
-        }
-        var tmpbuilder = JSInteropFactory.createStringBuilder(16);
-        for (var arrfillI = 0; arrfillI < i; arrfillI++) tmpbuilder.append(s[arrfillI]);
-        return tmpbuilder.toString();
+        return this.HasSmallValue() ? this.SmallValueToString() : this.toRadixString(10);
     };
 
     constructor['fromString'] = constructor.fromString = function(str) {
@@ -2837,7 +2958,7 @@ function(wordCount, reg, negative) {
             throw new Error("No digits");
         }
         var negative = false;
-        if (str.charAt(0) == '-') {
+        if (str.charAt(index) == '-') {
             ++index;
             if (index == endIndex) {
                 throw new Error("No digits");
@@ -2846,7 +2967,7 @@ function(wordCount, reg, negative) {
         }
 
         for (; index < endIndex; ++index) {
-            var c = str.charAt(index);
+            var c = str.charCodeAt(index);
             if (c != 48) {
                 break;
             }
@@ -2871,7 +2992,7 @@ function(wordCount, reg, negative) {
                 var extraWord = 0;
                 for (var i = 0; i < leftover; ++i) {
                     extraWord <<= 4;
-                    var c = str.charAt(index + i);
+                    var c = str.charCodeAt(index + i);
                     var digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
                     if (digit >= 16) {
                         throw new Error("Illegal character found");
@@ -2883,16 +3004,16 @@ function(wordCount, reg, negative) {
                 index = index + (leftover);
             }
             while (index < endIndex) {
-                var c = str.charAt(index + 3);
+                var c = str.charCodeAt(index + 3);
                 var digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
                 var word = digit;
-                c = str.charAt(index + 2);
+                c = str.charCodeAt(index + 2);
                 digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
                 word |= digit << 4;
-                c = str.charAt(index + 1);
+                c = str.charCodeAt(index + 1);
                 digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
                 word |= digit << 8;
-                c = str.charAt(index);
+                c = str.charCodeAt(index);
                 digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
                 word |= digit << 12;
                 index = index + (4);
@@ -2906,7 +3027,7 @@ function(wordCount, reg, negative) {
             var maxShortPlusOneMinusRadix = 65536 - radix;
             var smallInt = 0;
             for (var i = index; i < endIndex; ++i) {
-                var c = str.charAt(i);
+                var c = str.charCodeAt(i);
                 var digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
                 if (digit >= radix) {
                     throw new Error("Illegal character found");
