@@ -2789,13 +2789,34 @@ function(wordCount, reg, negative) {
         if (str == null) {
             throw new Error("str");
         }
-        return BigInteger.fromSubstring(str, 0, str.length);
+        return BigInteger.fromRadixSubstring(str, 10, 0, str.length);
     };
-    constructor.MaxSafeInt = 214748363;
+
+    constructor['fromRadixString'] = constructor.fromRadixString = function(str, radix) {
+        if (str == null) {
+            throw new Error("str");
+        }
+        return BigInteger.fromRadixSubstring(str, radix, 0, str.length);
+    };
 
     constructor['fromSubstring'] = constructor.fromSubstring = function(str, index, endIndex) {
         if (str == null) {
             throw new Error("str");
+        }
+        return BigInteger.fromRadixSubstring(str, 10, index, endIndex);
+    };
+    constructor.valueMaxSafeInts = [1073741823, 715827881, 536870911, 429496728, 357913940, 306783377, 268435455, 238609293, 214748363, 195225785, 178956969, 165191048, 153391688, 143165575, 134217727, 126322566, 119304646, 113025454, 107374181, 102261125, 97612892, 93368853, 89478484, 85899344, 82595523, 79536430, 76695843, 74051159, 71582787, 69273665, 67108863, 65075261, 63161282, 61356674, 59652322];
+    constructor.valueCharToDigit = [36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 36, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 36, 36, 36, 36, 36, 36, 36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 36, 36, 36, 36, 36, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 36, 36, 36, 36];
+
+    constructor['fromRadixSubstring'] = constructor.fromRadixSubstring = function(str, radix, index, endIndex) {
+        if (str == null) {
+            throw new Error("str");
+        }
+        if (radix < 2) {
+            throw new Error("radix (" + radix + ") is less than 2");
+        }
+        if (radix > 36) {
+            throw new Error("radix (" + radix + ") is more than 36");
         }
         if (index < 0) {
             throw new Error("index (" + index + ") is less than " + "0");
@@ -2818,60 +2839,117 @@ function(wordCount, reg, negative) {
         var negative = false;
         if (str.charAt(0) == '-') {
             ++index;
+            if (index == endIndex) {
+                throw new Error("No digits");
+            }
             negative = true;
         }
-        var bigint = [0, 0, 0, 0];
-        var haveDigits = false;
-        var haveSmallInt = true;
-        var smallInt = 0;
-        for (var i = index; i < endIndex; ++i) {
-            var c = str.charAt(i);
-            if (c < '0' || c > '9') {
-                throw new Error("Illegal character found");
-            }
-            haveDigits = true;
-            var digit = ((c.charCodeAt(0))-48);
-            if (haveSmallInt && smallInt < BigInteger.MaxSafeInt) {
-                smallInt *= 10;
-                smallInt = smallInt + (digit);
-            } else {
-                if (haveSmallInt) {
-                    bigint[0] = (smallInt & 65535);
-                    bigint[1] = ((smallInt) >>> 16);
-                    haveSmallInt = false;
-                }
 
-                var carry = 0;
-                var n = bigint.length;
-                for (var j = 0; j < n; ++j) {
-                    var p;
-                    {
-                        p = ((bigint[j]) & 65535) * 10;
-                        p = p + ((carry) & 65535);
-                        bigint[j] = (p & 65535);
-                        carry = ((p >> 16)|0);
-                    }
-                }
-                if (carry != 0) {
-                    bigint = BigInteger.GrowForCarry(bigint, carry);
-                }
-
-                if (digit != 0) {
-                    var d = bigint[0] & 65535;
-                    if (d <= 65526) {
-                        bigint[0] = ((d + digit) & 65535);
-                    } else if (BigInteger.Increment(bigint, 0, bigint.length, (digit|0)) != 0) {
-                        bigint = BigInteger.GrowForCarry(bigint, 1);
-                    }
-                }
+        for (; index < endIndex; ++index) {
+            var c = str.charAt(index);
+            if (c != 48) {
+                break;
             }
         }
-        if (!haveDigits) {
-            throw new Error("No digits");
+        var effectiveLength = endIndex - index;
+        if (effectiveLength == 0) {
+            return BigInteger.ZERO;
         }
-        if (haveSmallInt) {
-            bigint[0] = (smallInt & 65535);
-            bigint[1] = ((smallInt) >>> 16);
+        var bigint;
+        if (radix == 16) {
+
+            var leftover = effectiveLength & 3;
+            var wordCount = effectiveLength >> 2;
+            if (leftover != 0) {
+                ++wordCount;
+            }
+            bigint = [];
+            for (var arrfillI = 0; arrfillI < wordCount; arrfillI++) bigint[arrfillI] = 0;
+            var currentDigit = wordCount - 1;
+
+            if (leftover != 0) {
+                var extraWord = 0;
+                for (var i = 0; i < leftover; ++i) {
+                    extraWord <<= 4;
+                    var c = str.charAt(index + i);
+                    var digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
+                    if (digit >= 16) {
+                        throw new Error("Illegal character found");
+                    }
+                    extraWord |= digit;
+                }
+                bigint[currentDigit] = (extraWord & 65535);
+                --currentDigit;
+                index = index + (leftover);
+            }
+            while (index < endIndex) {
+                var c = str.charAt(index + 3);
+                var digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
+                var word = digit;
+                c = str.charAt(index + 2);
+                digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
+                word |= digit << 4;
+                c = str.charAt(index + 1);
+                digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
+                word |= digit << 8;
+                c = str.charAt(index);
+                digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
+                word |= digit << 12;
+                index = index + (4);
+                bigint[currentDigit] = (word & 65535);
+                --currentDigit;
+            }
+        } else {
+            bigint = [0, 0, 0, 0];
+            var haveSmallInt = true;
+            var maxSafeInt = BigInteger.valueMaxSafeInts[radix - 2];
+            var maxShortPlusOneMinusRadix = 65536 - radix;
+            var smallInt = 0;
+            for (var i = index; i < endIndex; ++i) {
+                var c = str.charAt(i);
+                var digit = (c >= 128) ? 36 : BigInteger.valueCharToDigit[(c|0)];
+                if (digit >= radix) {
+                    throw new Error("Illegal character found");
+                }
+                if (haveSmallInt && smallInt < maxSafeInt) {
+                    smallInt *= radix;
+                    smallInt = smallInt + (digit);
+                } else {
+                    if (haveSmallInt) {
+                        bigint[0] = (smallInt & 65535);
+                        bigint[1] = ((smallInt) >>> 16);
+                        haveSmallInt = false;
+                    }
+
+                    var carry = 0;
+                    var n = bigint.length;
+                    for (var j = 0; j < n; ++j) {
+                        var p;
+                        {
+                            p = ((bigint[j]) & 65535) * radix;
+                            p = p + ((carry) & 65535);
+                            bigint[j] = (p & 65535);
+                            carry = ((p >> 16)|0);
+                        }
+                    }
+                    if (carry != 0) {
+                        bigint = BigInteger.GrowForCarry(bigint, carry);
+                    }
+
+                    if (digit != 0) {
+                        var d = bigint[0] & 65535;
+                        if (d <= maxShortPlusOneMinusRadix) {
+                            bigint[0] = ((d + digit) & 65535);
+                        } else if (BigInteger.Increment(bigint, 0, bigint.length, (digit|0)) != 0) {
+                            bigint = BigInteger.GrowForCarry(bigint, 1);
+                        }
+                    }
+                }
+            }
+            if (haveSmallInt) {
+                bigint[0] = (smallInt & 65535);
+                bigint[1] = ((smallInt) >>> 16);
+            }
         }
         var count = BigInteger.CountWords(bigint, bigint.length);
         return (count == 0) ? BigInteger.ZERO : new BigInteger(count, bigint, negative);
