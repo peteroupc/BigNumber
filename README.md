@@ -12,14 +12,14 @@ To install, run the following:
     
 or
 
-    npm install bignumber-petero
+    npm install bignumber-poupc
     
 You may need to install the latest version of Node.js or use `npm` version 1.3.15 or later.
     
 Usage
 --------------
 
-    var bn=require("bignumber-petero"),
+    var bn=require("bignumber-poupc"),
           BigInteger=bn.BigInteger,
           ExtendedDecimal=bn.ExtendedDecimal,
           ExtendedFloat=bn.ExtendedFloat;
@@ -32,6 +32,11 @@ the same methods for BigInteger, ExtendedDecimal, and ExtendedFloat.
 
 History
 ------------
+
+Version 1.1.1
+
+- Package renamed to "bignumber-poupc".  The old package name, "bignumber-petero", is deprecated
+and will be removed soon.
 
 Version 1.1
 
