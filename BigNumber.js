@@ -900,88 +900,88 @@ function(wordCount, reg, negative) {
     constructor.ShortMask = 65535;
     constructor.BaselineMultiply4 = function(result, rstart, words1, astart, words2, bstart) {
         {
-            var shortMask = BigInteger.ShortMask;
+            var SMask = BigInteger.ShortMask;
             var p;
             var c;
             var d;
-            var a0 = (words1[astart]) & shortMask;
-            var b0 = (words2[bstart]) & shortMask;
+            var a0 = (words1[astart]) & SMask;
+            var b0 = (words2[bstart]) & SMask;
             p = a0 * b0;
             c = (p|0);
             d = (p) >>> 16;
             result[rstart] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = a0 * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = a0 * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * b0;
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * b0;
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 1] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = a0 * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = a0 * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * b0;
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * b0;
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 2] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = a0 * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = a0 * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * b0;
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * b0;
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 3] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 4] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 5] = (c & 65535);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 3]) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 3]) & SMask);
             p = p + (d);
             result[rstart + 6] = (p & 65535);
             result[rstart + 7] = (((p) >>> 16));
@@ -992,299 +992,299 @@ function(wordCount, reg, negative) {
             var p;
             var c;
             var d;
-            var shortMask = BigInteger.ShortMask;
-            p = ((words1[astart]) & shortMask) * ((words2[bstart]) & shortMask);
+            var SMask = BigInteger.ShortMask;
+            p = ((words1[astart]) & SMask) * ((words2[bstart]) & SMask);
             c = (p|0);
             d = (p) >>> 16;
             result[rstart] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 1] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 2] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 3] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart]) & shortMask) * ((words2[bstart + 4]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart]) & SMask) * ((words2[bstart + 4]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 4]) & shortMask) * ((words2[bstart]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 4]) & SMask) * ((words2[bstart]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 4] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart]) & shortMask) * ((words2[bstart + 5]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart]) & SMask) * ((words2[bstart + 5]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 4]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 4]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 4]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 4]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 5]) & shortMask) * ((words2[bstart]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 5]) & SMask) * ((words2[bstart]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 5] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart]) & shortMask) * ((words2[bstart + 6]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart]) & SMask) * ((words2[bstart + 6]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 5]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 5]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 4]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 4]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 4]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 4]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 5]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 5]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 6]) & shortMask) * ((words2[bstart]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 6]) & SMask) * ((words2[bstart]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 6] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart]) & shortMask) * ((words2[bstart + 7]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart]) & SMask) * ((words2[bstart + 7]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 6]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 6]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 5]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 5]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 4]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 4]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 4]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 4]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 5]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 5]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 6]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 6]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 7]) & shortMask) * ((words2[bstart]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 7]) & SMask) * ((words2[bstart]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 7] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart + 1]) & shortMask) * ((words2[bstart + 7]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 1]) & SMask) * ((words2[bstart + 7]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 6]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 6]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 5]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 5]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 4]) & shortMask) * ((words2[bstart + 4]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 4]) & SMask) * ((words2[bstart + 4]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 5]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 5]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 6]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 6]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 7]) & shortMask) * ((words2[bstart + 1]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 7]) & SMask) * ((words2[bstart + 1]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 8] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart + 2]) & shortMask) * ((words2[bstart + 7]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 2]) & SMask) * ((words2[bstart + 7]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 6]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 6]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 4]) & shortMask) * ((words2[bstart + 5]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 4]) & SMask) * ((words2[bstart + 5]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 5]) & shortMask) * ((words2[bstart + 4]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 5]) & SMask) * ((words2[bstart + 4]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 6]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 6]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 7]) & shortMask) * ((words2[bstart + 2]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 7]) & SMask) * ((words2[bstart + 2]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 9] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart + 3]) & shortMask) * ((words2[bstart + 7]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 3]) & SMask) * ((words2[bstart + 7]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 4]) & shortMask) * ((words2[bstart + 6]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 4]) & SMask) * ((words2[bstart + 6]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 5]) & shortMask) * ((words2[bstart + 5]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 5]) & SMask) * ((words2[bstart + 5]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 6]) & shortMask) * ((words2[bstart + 4]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 6]) & SMask) * ((words2[bstart + 4]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 7]) & shortMask) * ((words2[bstart + 3]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 7]) & SMask) * ((words2[bstart + 3]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 10] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart + 4]) & shortMask) * ((words2[bstart + 7]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 4]) & SMask) * ((words2[bstart + 7]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 5]) & shortMask) * ((words2[bstart + 6]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 5]) & SMask) * ((words2[bstart + 6]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 6]) & shortMask) * ((words2[bstart + 5]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 6]) & SMask) * ((words2[bstart + 5]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 7]) & shortMask) * ((words2[bstart + 4]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 7]) & SMask) * ((words2[bstart + 4]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 11] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart + 5]) & shortMask) * ((words2[bstart + 7]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 5]) & SMask) * ((words2[bstart + 7]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 6]) & shortMask) * ((words2[bstart + 6]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 6]) & SMask) * ((words2[bstart + 6]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 7]) & shortMask) * ((words2[bstart + 5]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 7]) & SMask) * ((words2[bstart + 5]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 12] = (c & 65535);
             c = (d|0);
             d = (d) >>> 16;
-            p = ((words1[astart + 6]) & shortMask) * ((words2[bstart + 7]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 6]) & SMask) * ((words2[bstart + 7]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
-            p = ((words1[astart + 7]) & shortMask) * ((words2[bstart + 6]) & shortMask);
-            p = p + ((c) & shortMask);
+            p = ((words1[astart + 7]) & SMask) * ((words2[bstart + 6]) & SMask);
+            p = p + ((c) & SMask);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 13] = (c & 65535);
-            p = ((words1[astart + 7]) & shortMask) * ((words2[bstart + 7]) & shortMask);
+            p = ((words1[astart + 7]) & SMask) * ((words2[bstart + 7]) & SMask);
             p = p + (d);
             result[rstart + 14] = (p & 65535);
             result[rstart + 15] = (((p) >>> 16));
@@ -2717,6 +2717,7 @@ function(wordCount, reg, negative) {
             return "0";
         }
         if (radix == 10) {
+
             if (this.HasSmallValue()) {
                 return this.SmallValueToString();
             }
@@ -2792,6 +2793,7 @@ function(wordCount, reg, negative) {
             return tmpbuilder.toString();
         }
         if (radix == 16) {
+
             var sb = JSInteropFactory.createStringBuilder(16);
             if (this.negative) {
                 sb.append('-');
@@ -2815,6 +2817,7 @@ function(wordCount, reg, negative) {
             return sb.toString();
         }
         if (radix == 2) {
+
             var sb = JSInteropFactory.createStringBuilder(16);
             if (this.negative) {
                 sb.append('-');
@@ -2837,6 +2840,7 @@ function(wordCount, reg, negative) {
             }
             return sb.toString();
         } else {
+
             var tempReg = [];
             for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) tempReg[arrfillI] = 0;
             for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) (tempReg)[0 + arrfillI] = this.words[0 + arrfillI];
@@ -2985,7 +2989,7 @@ function(wordCount, reg, negative) {
                 ++wordCount;
             }
             bigint = [];
-            for (var arrfillI = 0; arrfillI < wordCount; arrfillI++) bigint[arrfillI] = 0;
+            for (var arrfillI = 0; arrfillI < wordCount + (wordCount & 1); arrfillI++) bigint[arrfillI] = 0;
             var currentDigit = wordCount - 1;
 
             if (leftover != 0) {
@@ -6019,7 +6023,7 @@ var DecimalUtility = function() {
     };
 })(DecimalUtility,DecimalUtility.prototype);
 
-var Rounding={};Rounding.Up=0;Rounding['Up']=0;Rounding.Down=1;Rounding['Down']=1;Rounding.Ceiling=2;Rounding['Ceiling']=2;Rounding.Floor=3;Rounding['Floor']=3;Rounding.HalfUp=4;Rounding['HalfUp']=4;Rounding.HalfDown=5;Rounding['HalfDown']=5;Rounding.HalfEven=6;Rounding['HalfEven']=6;Rounding.Unnecessary=7;Rounding['Unnecessary']=7;Rounding.ZeroFiveUp=8;Rounding['ZeroFiveUp']=8;
+var Rounding={};Rounding.Up=0;Rounding['Up']=0;Rounding.Down=1;Rounding['Down']=1;Rounding.Ceiling=2;Rounding['Ceiling']=2;Rounding.Floor=3;Rounding['Floor']=3;Rounding.HalfUp=4;Rounding['HalfUp']=4;Rounding.HalfDown=5;Rounding['HalfDown']=5;Rounding.HalfEven=6;Rounding['HalfEven']=6;Rounding.Unnecessary=7;Rounding['Unnecessary']=7;Rounding.ZeroFiveUp=8;Rounding['ZeroFiveUp']=8;Rounding.Odd=9;Rounding['Odd']=9;Rounding.OddOrZeroFiveUp=10;Rounding['OddOrZeroFiveUp']=10;
 
 if(typeof exports!=="undefined")exports['Rounding']=Rounding;
 if(typeof window!=="undefined")window['Rounding']=Rounding;
@@ -6575,7 +6579,7 @@ var RadixMath = function(helper) {
             if (ctx.getHasFlags()) {
                 ctx.setFlags(ctx.getFlags() | (PrecisionContext.FlagOverflow | PrecisionContext.FlagInexact | PrecisionContext.FlagRounded));
             }
-            if (ctx.getHasMaxPrecision() && ctx.getHasExponentRange() && (roundingOnOverflow == Rounding.Down || roundingOnOverflow == Rounding.ZeroFiveUp || (roundingOnOverflow == Rounding.Ceiling && neg) || (roundingOnOverflow == Rounding.Floor && !neg))) {
+            if (ctx.getHasMaxPrecision() && ctx.getHasExponentRange() && (roundingOnOverflow == Rounding.Down || roundingOnOverflow == Rounding.ZeroFiveUp || (roundingOnOverflow == Rounding.OddOrZeroFiveUp || roundingOnOverflow == Rounding.Odd) || (roundingOnOverflow == Rounding.Ceiling && neg) || (roundingOnOverflow == Rounding.Floor && !neg))) {
 
                 var overflowMant = BigInteger.ZERO;
                 var fastPrecision = FastInteger.FromBig(ctx.getPrecision());
@@ -6613,7 +6617,7 @@ var RadixMath = function(helper) {
                     incremented |= !fastint.isEvenNumber();
                 }
             }
-        } else if (rounding == Rounding.ZeroFiveUp) {
+        } else if (rounding == Rounding.ZeroFiveUp || (rounding == Rounding.OddOrZeroFiveUp && this.thisRadix != 2)) {
             var radix = this.thisRadix;
             if ((accum.getLastDiscardedDigit() | accum.getOlderDiscardedDigits()) != 0) {
                 if (radix == 2) {
@@ -6633,6 +6637,9 @@ var RadixMath = function(helper) {
     prototype.RoundGivenDigits = function(lastDiscarded, olderDiscarded, rounding, neg, bigval) {
         var incremented = false;
         var radix = this.thisRadix;
+        if (rounding == Rounding.OddOrZeroFiveUp) {
+            rounding = (radix == 2) ? Rounding.Odd : Rounding.ZeroFiveUp;
+        }
         if (rounding == Rounding.HalfUp) {
             incremented |= lastDiscarded >= ((radix / 2)|0);
         } else if (rounding == Rounding.HalfEven) {
@@ -6652,6 +6659,8 @@ var RadixMath = function(helper) {
             incremented |= lastDiscarded > ((radix / 2)|0) || (lastDiscarded == ((radix / 2)|0) && olderDiscarded != 0);
         } else if (rounding == Rounding.Up) {
             incremented |= (lastDiscarded | olderDiscarded) != 0;
+        } else if (rounding == Rounding.Odd) {
+            incremented |= (lastDiscarded | olderDiscarded) != 0 && bigval.testBit(0) == false;
         } else if (rounding == Rounding.ZeroFiveUp) {
             if ((lastDiscarded | olderDiscarded) != 0) {
                 if (radix == 2) {
@@ -6779,16 +6788,20 @@ var RadixMath = function(helper) {
             return this.ReturnQuietNaN(value, ctx);
         }
         var mant = this.helper.GetMantissa(value);
+        var zero;
         if ((flags & BigNumberFlags.FlagInfinity) == 0 && mant.signum() == 0) {
             if ((flags & BigNumberFlags.FlagNegative) == 0) {
 
-                return this.RoundToPrecision(this.helper.CreateNewWithFlags(mant, this.helper.GetExponent(value), flags & ~BigNumberFlags.FlagNegative), ctx);
+                zero = this.helper.CreateNewWithFlags(mant, this.helper.GetExponent(value), flags & ~BigNumberFlags.FlagNegative);
+                return this.RoundToPrecision(zero, ctx);
             }
             if (ctx != null && ctx.getRounding() == Rounding.Floor) {
 
-                return this.RoundToPrecision(this.helper.CreateNewWithFlags(mant, this.helper.GetExponent(value), flags | BigNumberFlags.FlagNegative), ctx);
+                zero = this.helper.CreateNewWithFlags(mant, this.helper.GetExponent(value), flags | BigNumberFlags.FlagNegative);
+            } else {
+                zero = this.helper.CreateNewWithFlags(mant, this.helper.GetExponent(value), flags & ~BigNumberFlags.FlagNegative);
             }
-            return this.RoundToPrecision(this.helper.CreateNewWithFlags(mant, this.helper.GetExponent(value), flags & ~BigNumberFlags.FlagNegative), ctx);
+            return this.RoundToPrecision(zero, ctx);
         }
         flags ^= BigNumberFlags.FlagNegative;
         return this.RoundToPrecision(this.helper.CreateNewWithFlags(mant, this.helper.GetExponent(value), flags), ctx);
@@ -6870,7 +6883,7 @@ var RadixMath = function(helper) {
         }
 
         var a = this.helper.ValueOf(1);
-        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(BigInteger.TEN)).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp);
+        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(BigInteger.TEN)).WithRounding(Rounding.OddOrZeroFiveUp);
         var two = this.helper.ValueOf(2);
         var b = this.Divide(a, this.SquareRoot(two, ctxdiv), ctxdiv);
         var four = this.helper.ValueOf(4);
@@ -6920,7 +6933,7 @@ var RadixMath = function(helper) {
         var more = true;
         var lastCompare = 0;
         var vacillations = 0;
-        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, workingPrecision.add(BigInteger.valueOf(6))).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp);
+        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, workingPrecision.add(BigInteger.valueOf(6))).WithRounding(Rounding.OddOrZeroFiveUp);
         var z = this.Add(this.NegateRaw(thisValue), this.helper.ValueOf(1), null);
         var zpow = this.Multiply(z, z, ctxdiv);
         var guess = this.NegateRaw(z);
@@ -6951,7 +6964,7 @@ var RadixMath = function(helper) {
     };
     prototype.ExpInternal = function(thisValue, workingPrecision, ctx) {
         var one = this.helper.ValueOf(1);
-        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, workingPrecision.add(BigInteger.valueOf(6))).WithRounding(this.thisRadix == 2 ? Rounding.Down : Rounding.ZeroFiveUp);
+        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, workingPrecision.add(BigInteger.valueOf(6))).WithRounding(Rounding.OddOrZeroFiveUp);
         var bigintN = BigInteger.valueOf(2);
         var facto = BigInteger.ONE;
 
@@ -7010,7 +7023,7 @@ var RadixMath = function(helper) {
         var error = this.helper.CreateShiftAccumulator((powIntBig).abs()).GetDigitLength();
         error.AddInt(6);
         var bigError = error.AsBigInteger();
-        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp).WithBlankFlags();
+        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
         if (sign < 0) {
 
             thisValue = this.Divide(one, thisValue, ctxdiv);
@@ -7214,7 +7227,7 @@ var RadixMath = function(helper) {
         var guardDigitCount = this.thisRadix == 2 ? 32 : 10;
         var guardDigits = BigInteger.valueOf(guardDigitCount);
         var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(guardDigits));
-        ctxdiv = ctxdiv.WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp).WithBlankFlags();
+        ctxdiv = ctxdiv.WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
         var lnresult = this.Ln(thisValue, ctxdiv);
 
         lnresult = this.Multiply(lnresult, pow, ctxdiv);
@@ -7296,7 +7309,7 @@ var RadixMath = function(helper) {
                     thisValue = this.helper.CreateNewWithFlags(expTmp.AsBigInteger(), BigInteger.ZERO, expTmp.signum() < 0 ? BigNumberFlags.FlagNegative : 0);
                     thisValue = thisValue = this.RoundToPrecision(thisValue, ctxCopy);
                 } else {
-                    var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(BigInteger.TEN)).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp).WithBlankFlags();
+                    var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(BigInteger.TEN)).WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
                     var logNatural = this.Ln(thisValue, ctxdiv);
                     var logTen = this.LnTenConstant(ctxdiv);
 
@@ -7344,7 +7357,7 @@ var RadixMath = function(helper) {
         var bigError;
         error = new FastInteger(10);
         bigError = error.AsBigInteger();
-        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp).WithBlankFlags();
+        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
         for (var i = 0; i < 9; ++i) {
             thisValue = this.SquareRoot(thisValue, ctxdiv.WithUnlimitedExponents());
         }
@@ -7396,7 +7409,7 @@ var RadixMath = function(helper) {
 
                 var error = new FastInteger(10);
                 var bigError = error.AsBigInteger();
-                ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp).WithBlankFlags();
+                ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
                 var quarter = this.Divide(one, this.helper.ValueOf(4), ctxCopy);
                 if (this.compareTo(thisValue, quarter) <= 0) {
 
@@ -7438,7 +7451,7 @@ var RadixMath = function(helper) {
                     var bigError;
                     error = new FastInteger(10);
                     bigError = error.AsBigInteger();
-                    ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp).WithBlankFlags();
+                    ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
                     var smallfrac = this.Divide(one, this.helper.ValueOf(10), ctxdiv);
                     var closeToOne = this.Add(one, smallfrac, null);
 
@@ -7458,7 +7471,7 @@ var RadixMath = function(helper) {
                     var bigError;
                     error = new FastInteger(10);
                     bigError = error.AsBigInteger();
-                    ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp).WithBlankFlags();
+                    ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
                     var smallfrac = this.Divide(one, this.helper.ValueOf(16), ctxdiv);
                     var closeToOne = this.Add(one, smallfrac, null);
                     if (this.compareTo(thisValue, closeToOne) >= 0) {
@@ -7517,7 +7530,7 @@ var RadixMath = function(helper) {
         var sign = this.helper.GetSign(thisValue);
         var one = this.helper.ValueOf(1);
         var guardDigits = this.thisRadix == 2 ? ctx.getPrecision().add(BigInteger.TEN) : BigInteger.TEN;
-        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(guardDigits)).WithRounding(this.thisRadix == 2 ? Rounding.HalfEven : Rounding.ZeroFiveUp).WithBlankFlags();
+        var ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(guardDigits)).WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
         if (sign == 0) {
             thisValue = this.RoundToPrecision(one, ctxCopy);
         } else if (sign > 0 && this.compareTo(thisValue, one) < 0) {
@@ -8777,7 +8790,7 @@ var RadixMath = function(helper) {
             if (rounding == Rounding.Unnecessary) {
                 return this.SignalInvalidWithMessage(ctx, "Rounding was required");
             }
-            if (!unlimitedPrec && (rounding == Rounding.Down || rounding == Rounding.ZeroFiveUp || (rounding == Rounding.Ceiling && neg) || (rounding == Rounding.Floor && !neg))) {
+            if (!unlimitedPrec && (rounding == Rounding.Down || rounding == Rounding.ZeroFiveUp || (rounding == Rounding.OddOrZeroFiveUp && this.thisRadix != 2) || (rounding == Rounding.Ceiling && neg) || (rounding == Rounding.Floor && !neg))) {
 
                 var overflowMant = BigInteger.ZERO;
                 if (binaryPrec) {
@@ -8940,7 +8953,7 @@ var RadixMath = function(helper) {
             }
             if (adjExponent.compareTo(fastEMax) > 0) {
                 flags |= PrecisionContext.FlagOverflow | PrecisionContext.FlagInexact | PrecisionContext.FlagRounded;
-                if (!unlimitedPrec && (rounding == Rounding.Down || rounding == Rounding.ZeroFiveUp || (rounding == Rounding.Ceiling && neg) || (rounding == Rounding.Floor && !neg))) {
+                if (!unlimitedPrec && (rounding == Rounding.Down || rounding == Rounding.ZeroFiveUp || (rounding == Rounding.OddOrZeroFiveUp || rounding == Rounding.Odd) || (rounding == Rounding.Ceiling && neg) || (rounding == Rounding.Floor && !neg))) {
 
                     var overflowMant = BigInteger.ZERO;
                     if (binaryPrec) {
@@ -9874,7 +9887,7 @@ var SimpleRadixMath = function(wrapper) {
             if (pc.getHasFlags()) {
                 pc.setFlags(pc.getFlags() | (PrecisionContext.FlagOverflow | PrecisionContext.FlagInexact | PrecisionContext.FlagRounded));
             }
-            if (pc.getHasMaxPrecision() && pc.getHasExponentRange() && (roundingOnOverflow == Rounding.Down || roundingOnOverflow == Rounding.ZeroFiveUp || (roundingOnOverflow == Rounding.Ceiling && neg) || (roundingOnOverflow == Rounding.Floor && !neg))) {
+            if (pc.getHasMaxPrecision() && pc.getHasExponentRange() && (roundingOnOverflow == Rounding.Down || roundingOnOverflow == Rounding.ZeroFiveUp || (roundingOnOverflow == Rounding.OddOrZeroFiveUp) || (roundingOnOverflow == Rounding.Odd) || (roundingOnOverflow == Rounding.Ceiling && neg) || (roundingOnOverflow == Rounding.Floor && !neg))) {
 
                 var overflowMant = BigInteger.ZERO;
                 var fastPrecision = FastInteger.FromBig(pc.getPrecision());
