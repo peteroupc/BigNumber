@@ -2320,7 +2320,7 @@ function(wordCount, reg, negative) {
         }
         var sign = power.signum();
         if (sign < 0) {
-            throw new Error("sign (" + sign + ") is less than " + "0");
+            throw new Error("sign (" + sign + ") is less than 0");
         }
         var thisVar = this;
         if (sign == 0) {
@@ -2350,7 +2350,7 @@ function(wordCount, reg, negative) {
 
     prototype['pow'] = prototype.pow = function(powerSmall) {
         if (powerSmall < 0) {
-            throw new Error("powerSmall (" + powerSmall + ") is less than " + "0");
+            throw new Error("powerSmall (" + powerSmall + ") is less than 0");
         }
         var thisVar = this;
         if (powerSmall == 0) {
@@ -2950,7 +2950,7 @@ function(wordCount, reg, negative) {
             throw new Error("index (" + index + ") is more than " + str.length);
         }
         if (endIndex < 0) {
-            throw new Error("endIndex (" + endIndex + ") is less than " + "0");
+            throw new Error("endIndex (" + endIndex + ") is less than 0");
         }
         if (endIndex > str.length) {
             throw new Error("endIndex (" + endIndex + ") is more than " + str.length);

@@ -2320,7 +2320,7 @@ function(wordCount, reg, negative) {
         }
         var sign = power.signum();
         if (sign < 0) {
-            throw new Error("sign (" + sign + ") is less than " + "0");
+            throw new Error("sign (" + sign + ") is less than 0");
         }
         var thisVar = this;
         if (sign == 0) {
@@ -2350,7 +2350,7 @@ function(wordCount, reg, negative) {
 
     prototype['pow'] = prototype.pow = function(powerSmall) {
         if (powerSmall < 0) {
-            throw new Error("powerSmall (" + powerSmall + ") is less than " + "0");
+            throw new Error("powerSmall (" + powerSmall + ") is less than 0");
         }
         var thisVar = this;
         if (powerSmall == 0) {
@@ -2950,7 +2950,7 @@ function(wordCount, reg, negative) {
             throw new Error("index (" + index + ") is more than " + str.length);
         }
         if (endIndex < 0) {
-            throw new Error("endIndex (" + endIndex + ") is less than " + "0");
+            throw new Error("endIndex (" + endIndex + ") is less than 0");
         }
         if (endIndex > str.length) {
             throw new Error("endIndex (" + endIndex + ") is more than " + str.length);
@@ -4668,7 +4668,7 @@ var BitShiftAccumulator =
 function(bigint, lastDiscarded, olderDiscarded) {
 
     if (bigint.signum() < 0) {
-        throw new Error("bigint's sign (" + bigint.signum() + ") is less than " + "0");
+        throw new Error("bigint's sign (" + bigint.signum() + ") is less than 0");
     }
     if (bigint.canFitInInt()) {
         this.isSmall = true;
@@ -4698,7 +4698,7 @@ function(bigint, lastDiscarded, olderDiscarded) {
     };
     prototype.ShiftToDigits = function(bits) {
         if (bits.signum() < 0) {
-            throw new Error("bits's sign (" + bits.signum() + ") is less than " + "0");
+            throw new Error("bits's sign (" + bits.signum() + ") is less than 0");
         }
         if (bits.CanFitInInt32()) {
             this.ShiftToDigitsInt(bits.AsInt32());
@@ -4726,7 +4726,7 @@ function(bigint, lastDiscarded, olderDiscarded) {
     };
     constructor.FromInt32 = function(smallNumber) {
         if (smallNumber < 0) {
-            throw new Error("smallNumber (" + smallNumber + ") is less than " + "0");
+            throw new Error("smallNumber (" + smallNumber + ") is less than 0");
         }
         var bsa = new BitShiftAccumulator(BigInteger.ZERO, 0, 0);
         bsa.shiftedSmall = smallNumber;
@@ -4933,7 +4933,7 @@ function(bigint, lastDiscarded, olderDiscarded) {
 
     prototype.ShiftToDigitsInt = function(bits) {
         if (bits < 0) {
-            throw new Error("bits (" + bits + ") is less than " + "0");
+            throw new Error("bits (" + bits + ") is less than 0");
         }
         if (this.isSmall) {
             this.ShiftSmallToBits(bits);
@@ -4978,7 +4978,7 @@ function(bigint, lastDiscarded, olderDiscarded) {
     if (bigint.canFitInInt()) {
         this.shiftedSmall = bigint.intValue();
         if (this.shiftedSmall < 0) {
-            throw new Error("shiftedSmall (" + this.shiftedSmall + ") is less than " + "0");
+            throw new Error("shiftedSmall (" + this.shiftedSmall + ") is less than 0");
         }
         this.isSmall = true;
     } else {
@@ -5372,7 +5372,7 @@ function(bigint, lastDiscarded, olderDiscarded) {
             this.ShiftToDigitsInt(intval);
         } else {
             if (bits.signum() < 0) {
-                throw new Error("bits's sign (" + bits.signum() + ") is less than " + "0");
+                throw new Error("bits's sign (" + bits.signum() + ") is less than 0");
             }
             this.knownBitLength = this.CalcKnownDigitLength();
             var bigintDiff = this.knownBitLength.AsBigInteger();
@@ -6033,7 +6033,7 @@ var PrecisionContext =
 function(precision, rounding, exponentMinSmall, exponentMaxSmall, clampNormalExponents) {
 
     if (precision < 0) {
-        throw new Error("precision (" + precision + ") is less than " + "0");
+        throw new Error("precision (" + precision + ") is less than 0");
     }
     if (exponentMinSmall > exponentMaxSmall) {
         throw new Error("exponentMinSmall (" + exponentMinSmall + ") is more than " + exponentMaxSmall);
@@ -6210,7 +6210,7 @@ function(precision, rounding, exponentMinSmall, exponentMaxSmall, clampNormalExp
     };
     prototype['WithPrecision'] = prototype.WithPrecision = function(precision) {
         if (precision < 0) {
-            throw new Error("precision (" + precision + ") is less than " + "0");
+            throw new Error("precision (" + precision + ") is less than 0");
         }
         var pc = this.Copy();
         pc.bigintPrecision = BigInteger.valueOf(precision);
@@ -6221,7 +6221,7 @@ function(precision, rounding, exponentMinSmall, exponentMaxSmall, clampNormalExp
             throw new Error("bigintPrecision");
         }
         if (bigintPrecision.signum() < 0) {
-            throw new Error("bigintPrecision's sign (" + bigintPrecision.signum() + ") is less than " + "0");
+            throw new Error("bigintPrecision's sign (" + bigintPrecision.signum() + ") is less than 0");
         }
         var pc = this.Copy();
         pc.bigintPrecision = bigintPrecision;
@@ -7474,18 +7474,18 @@ var RadixMath = function(helper) {
                     ctxdiv = RadixMath.SetPrecisionIfLimited(ctx, ctx.getPrecision().add(bigError)).WithRounding(Rounding.OddOrZeroFiveUp).WithBlankFlags();
                     var smallfrac = this.Divide(one, this.helper.ValueOf(16), ctxdiv);
                     var closeToOne = this.Add(one, smallfrac, null);
-                    if (this.compareTo(thisValue, closeToOne) >= 0) {
-
-                        thisValue = this.Divide(one, thisValue, ctxdiv);
-                        thisValue = this.LnInternal(thisValue, ctxdiv.getPrecision(), ctxCopy);
-                        thisValue = this.NegateRaw(thisValue);
-                    } else {
+                    if (this.compareTo(thisValue, closeToOne) < 0) {
                         error = this.helper.CreateShiftAccumulator((this.helper.GetMantissa(thisValue)).abs()).GetDigitLength();
                         error.AddInt(6);
                         error.AddBig(ctx.getPrecision());
                         bigError = error.AsBigInteger();
 
                         thisValue = this.LnInternal(thisValue, error.AsBigInteger(), ctxCopy);
+                    } else {
+
+                        thisValue = this.Divide(one, thisValue, ctxdiv);
+                        thisValue = this.LnInternal(thisValue, ctxdiv.getPrecision(), ctxCopy);
+                        thisValue = this.NegateRaw(thisValue);
                     }
                 }
                 if (ctx.getHasFlags()) {
@@ -7687,28 +7687,28 @@ var RadixMath = function(helper) {
                 retval = this.ReduceToPrecisionAndIdealExponent(retval, ctx.getHasExponentRange() ? ctxtmp : null, inexact ? targetPrecision : null, FastInteger.FromBig(idealExp));
             }
         }
-        if (ctx.getHasFlags() && ctx.getClampNormalExponents() && !this.helper.GetExponent(retval).equals(idealExp) && (ctxtmp.getFlags() & PrecisionContext.FlagInexact) == 0) {
-            ctx.setFlags(ctx.getFlags() | (PrecisionContext.FlagClamped));
-        }
-        rounded |= (ctxtmp.getFlags() & PrecisionContext.FlagOverflow) != 0;
+        if (ctx.getHasFlags()) {
+            if (ctx.getClampNormalExponents() && !this.helper.GetExponent(retval).equals(idealExp) && (ctxtmp.getFlags() & PrecisionContext.FlagInexact) == 0) {
+                ctx.setFlags(ctx.getFlags() | (PrecisionContext.FlagClamped));
+            }
+            rounded |= (ctxtmp.getFlags() & PrecisionContext.FlagOverflow) != 0;
 
-        currentExp = this.helper.GetExponent(retval);
-        if (rounded) {
-            ctxtmp.setFlags(ctxtmp.getFlags() | (PrecisionContext.FlagRounded));
-        } else {
-            if (currentExp.compareTo(idealExp) > 0) {
-
+            currentExp = this.helper.GetExponent(retval);
+            if (rounded) {
                 ctxtmp.setFlags(ctxtmp.getFlags() | (PrecisionContext.FlagRounded));
             } else {
+                if (currentExp.compareTo(idealExp) > 0) {
 
-                ctxtmp.setFlags(ctxtmp.getFlags() & ~(PrecisionContext.FlagRounded));
+                    ctxtmp.setFlags(ctxtmp.getFlags() | (PrecisionContext.FlagRounded));
+                } else {
+
+                    ctxtmp.setFlags(ctxtmp.getFlags() & ~(PrecisionContext.FlagRounded));
+                }
             }
-        }
-        if (inexact) {
-            ctxtmp.setFlags(ctxtmp.getFlags() | (PrecisionContext.FlagRounded));
-            ctxtmp.setFlags(ctxtmp.getFlags() | (PrecisionContext.FlagInexact));
-        }
-        if (ctx.getHasFlags()) {
+            if (inexact) {
+                ctxtmp.setFlags(ctxtmp.getFlags() | (PrecisionContext.FlagRounded));
+                ctxtmp.setFlags(ctxtmp.getFlags() | (PrecisionContext.FlagInexact));
+            }
             ctx.setFlags(ctx.getFlags() | (ctxtmp.getFlags()));
         }
         return retval;
@@ -11192,6 +11192,9 @@ var tmpoffset = offset;
     constructor.valueOneShift62 = BigInteger.ONE.shiftLeft(62);
 
     prototype['ToExtendedFloat'] = prototype.ToExtendedFloat = function() {
+        return this.ToExtendedFloatInternal(false);
+    };
+    prototype.ToExtendedFloatInternal = function(oddRounding) {
         if (this.IsNaN() || this.IsInfinity()) {
             return ExtendedFloat.CreateWithFlags(this.unsignedMantissa, this.exponent, this.flags);
         }
@@ -11255,14 +11258,21 @@ var tmpoffset = offset;
                     break;
                 }
             }
+            if (oddRounding) {
 
-            var halfDivisor = divisor;
-            halfDivisor = halfDivisor.shiftRight(1);
-            var cmp = remainder.compareTo(halfDivisor);
+                if (remainder.signum() != 0 && bigmantissa.testBit(0) == false) {
+                    bigmantissa = bigmantissa.add(BigInteger.ONE);
+                }
+            } else {
 
-            if (cmp > 0) {
+                var halfDivisor = divisor;
+                halfDivisor = halfDivisor.shiftRight(1);
+                var cmp = remainder.compareTo(halfDivisor);
 
-                bigmantissa = bigmantissa.add(BigInteger.ONE);
+                if (cmp > 0) {
+
+                    bigmantissa = bigmantissa.add(BigInteger.ONE);
+                }
             }
             if (neg) {
                 bigmantissa = (bigmantissa).negate();
@@ -11293,7 +11303,7 @@ var tmpoffset = offset;
 
             return this.isNegative() ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
         }
-        return this.ToExtendedFloat().ToSingle();
+        return this.ToExtendedFloatInternal(true).ToSingle();
     };
     prototype.GetAdjustedExponent = function() {
         if (!this.isFinite()) {
@@ -11344,7 +11354,7 @@ var tmpoffset = offset;
 
             return this.isNegative() ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY;
         }
-        return this.ToExtendedFloat().ToDouble();
+        return this.ToExtendedFloatInternal(true).ToDouble();
     };
 
     constructor['FromSingle'] = constructor.FromSingle = function(flt) {
@@ -11763,6 +11773,65 @@ var tmpoffset = offset;
     constructor['PI'] = constructor.PI = function(ctx) {
         return ExtendedDecimal.MathValue.Pi(ctx);
     };
+
+    prototype['MovePointLeft'] = prototype.MovePointLeft = function(bigPlaces, ctx) {
+        if (bigPlaces.signum() == 0) {
+            return this.RoundToPrecision(ctx);
+        }
+        return (!this.isFinite()) ? this.RoundToPrecision(ctx) : this.MovePointRight((bigPlaces).negate(), ctx);
+    };
+
+    prototype['MovePointRight'] = prototype.MovePointRight = function(bigPlaces, ctx) {
+        if (bigPlaces.signum() == 0) {
+            return this.RoundToPrecision(ctx);
+        }
+        if (!this.isFinite()) {
+            return this.RoundToPrecision(ctx);
+        }
+        var bigExp = this.getExponent();
+        bigExp = bigExp.add(bigPlaces);
+        if (bigExp.signum() > 0) {
+            var mant = this.unsignedMantissa;
+            var bigPower = DecimalUtility.FindPowerOfTenFromBig(bigExp);
+            mant = mant.multiply(bigPower);
+            return ExtendedDecimal.CreateWithFlags(mant, BigInteger.ZERO, this.flags).RoundToPrecision(ctx);
+        }
+        return ExtendedDecimal.CreateWithFlags(this.unsignedMantissa, bigExp, this.flags).RoundToPrecision(ctx);
+    };
+
+    prototype['ScaleByPowerOfTen'] = prototype.ScaleByPowerOfTen = function(bigPlaces, ctx) {
+        if (bigPlaces.signum() == 0) {
+            return this.RoundToPrecision(ctx);
+        }
+        if (!this.isFinite()) {
+            return this.RoundToPrecision(ctx);
+        }
+        var bigExp = this.getExponent();
+        bigExp = bigExp.add(bigPlaces);
+        return ExtendedDecimal.CreateWithFlags(this.unsignedMantissa, bigExp, this.flags).RoundToPrecision(ctx);
+    };
+
+    prototype['Precision'] = prototype.Precision = function() {
+        if (!this.isFinite()) {
+            return BigInteger.ZERO;
+        }
+        if (this.signum() == 0) {
+            return BigInteger.ONE;
+        }
+        var digcount = this.unsignedMantissa.getDigitCount();
+        return BigInteger.valueOf(digcount);
+    };
+
+    prototype['Ulp'] = prototype.Ulp = function() {
+        return (!this.isFinite()) ? ExtendedDecimal.One : ExtendedDecimal.Create(BigInteger.ONE, this.exponent);
+    };
+
+    prototype['DivideAndRemainderNaturalScale'] = prototype.DivideAndRemainderNaturalScale = function(divisor, ctx) {
+        var result = [null, null];
+        result[0] = this.DivideToIntegerNaturalScale(divisor, ctx);
+        result[1] = this.Subtract(result[0].Multiply(divisor, null), null);
+        return result;
+    };
 })(ExtendedDecimal,ExtendedDecimal.prototype);
 
 if(typeof exports!=="undefined")exports['ExtendedDecimal']=ExtendedDecimal;
@@ -12003,13 +12072,8 @@ if (str == null) {
             if (this.isNegative()) {
                 nan |= ((1 << 31)|0);
             }
-            if (this.IsQuietNaN()) {
 
-                nan |= 4194304;
-            } else {
-
-                nan |= 2097152;
-            }
+            nan |= this.IsQuietNaN() ? 4194304 : 2097152;
             if (this.getUnsignedMantissa().signum() != 0) {
 
                 var bigdata = this.getUnsignedMantissa().remainder(BigInteger.valueOf(2097152));
@@ -12544,6 +12608,63 @@ if (str == null) {
 
     constructor['PI'] = constructor.PI = function(ctx) {
         return ExtendedFloat.MathValue.Pi(ctx);
+    };
+
+    prototype['MovePointLeft'] = prototype.MovePointLeft = function(bigPlaces, ctx) {
+        if (bigPlaces.signum() == 0) {
+            return this.RoundToPrecision(ctx);
+        }
+        return (!this.isFinite()) ? this.RoundToPrecision(ctx) : this.MovePointRight((bigPlaces).negate(), ctx);
+    };
+
+    prototype['MovePointRight'] = prototype.MovePointRight = function(bigPlaces, ctx) {
+        if (bigPlaces.signum() == 0) {
+            return this.RoundToPrecision(ctx);
+        }
+        if (!this.isFinite()) {
+            return this.RoundToPrecision(ctx);
+        }
+        var bigExp = this.getExponent();
+        bigExp = bigExp.add(bigPlaces);
+        if (bigExp.signum() > 0) {
+            var mant = DecimalUtility.ShiftLeft(this.unsignedMantissa, bigExp);
+            return ExtendedFloat.CreateWithFlags(mant, BigInteger.ZERO, this.flags).RoundToPrecision(ctx);
+        }
+        return ExtendedFloat.CreateWithFlags(this.unsignedMantissa, bigExp, this.flags).RoundToPrecision(ctx);
+    };
+
+    prototype['ScaleByPowerOfTwo'] = prototype.ScaleByPowerOfTwo = function(bigPlaces, ctx) {
+        if (bigPlaces.signum() == 0) {
+            return this.RoundToPrecision(ctx);
+        }
+        if (!this.isFinite()) {
+            return this.RoundToPrecision(ctx);
+        }
+        var bigExp = this.getExponent();
+        bigExp = bigExp.add(bigPlaces);
+        return ExtendedFloat.CreateWithFlags(this.unsignedMantissa, bigExp, this.flags).RoundToPrecision(ctx);
+    };
+
+    prototype['Precision'] = prototype.Precision = function() {
+        if (!this.isFinite()) {
+            return BigInteger.ZERO;
+        }
+        if (this.signum() == 0) {
+            return BigInteger.ONE;
+        }
+        var bitlen = this.unsignedMantissa.bitLength();
+        return BigInteger.valueOf(bitlen);
+    };
+
+    prototype['Ulp'] = prototype.Ulp = function() {
+        return (!this.isFinite()) ? ExtendedFloat.One : ExtendedFloat.Create(BigInteger.ONE, this.exponent);
+    };
+
+    prototype['DivideAndRemainderNaturalScale'] = prototype.DivideAndRemainderNaturalScale = function(divisor, ctx) {
+        var result = [null, null];
+        result[0] = this.DivideToIntegerNaturalScale(divisor, ctx);
+        result[1] = this.Subtract(result[0].Multiply(divisor, null), null);
+        return result;
     };
 })(ExtendedFloat,ExtendedFloat.prototype);
 
