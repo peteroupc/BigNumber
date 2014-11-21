@@ -33,6 +33,16 @@ the same methods for BigInteger, ExtendedDecimal, and ExtendedFloat.
 History
 ------------
 
+Version 1.2
+
+- Added Ulp, Precision, MovePointLeft, MovePointRight, and ScaleToPowerOfTwo/-Ten methods to
+  ExtendedDecimal and ExtendedFloat
+- Fixed double-rounding issue with ToDouble and ToFloat methods
+  of ExtendedDecimal
+- Added Odd and OddOrZeroFiveUp rounding modes
+- Added non-decimal base conversion features to BigInteger
+- Other bug fixes
+
 Version 1.1.1
 
 - Package renamed to "bignumber-poupc".  The old package name, "bignumber-petero", is deprecated
