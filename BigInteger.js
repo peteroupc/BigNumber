@@ -301,8 +301,8 @@ function(wordCount, reg, negative) {
             if (shiftBits != 0) {
                 for (var i = 0; i < n; ++i) {
                     u = r[rstart + i];
-                    r[rstart + i] = ((((((((((u << (shiftBits|0))|0) | ((carry) & 65535)))|0)) & 65535))|0));
-                    carry = ((((u) & 65535) >> ((16 - shiftBits)|0))|0);
+                    r[rstart + i] = (((((((((u << (shiftBits|0))|0) | (carry & 65535)))|0)) & 65535))|0);
+                    carry = (((u & 65535) >> ((16 - shiftBits)|0))|0);
                 }
             }
             return carry;
@@ -314,8 +314,8 @@ function(wordCount, reg, negative) {
             if (shiftBits != 0) {
                 for (var i = n; i > 0; --i) {
                     u = r[rstart + i - 1];
-                    r[rstart + i - 1] = ((((((((((((u) & 65535) >> (shiftBits|0)) & 65535) | ((carry) & 65535)))|0)) & 65535))|0));
-                    carry = ((((u) & 65535) << ((16 - shiftBits)|0))|0);
+                    r[rstart + i - 1] = ((((((((((u & 65535) >> (shiftBits|0)) & 65535) | (carry & 65535)))|0)) & 65535))|0);
+                    carry = (((u & 65535) << ((16 - shiftBits)|0))|0);
                 }
             }
             return carry;
@@ -327,8 +327,8 @@ function(wordCount, reg, negative) {
             if (shiftBits != 0) {
                 for (var i = n; i > 0; --i) {
                     u = r[rstart + i - 1];
-                    r[rstart + i - 1] = (((((((((((u) & 65535) >> (shiftBits|0)) | ((carry) & 65535)))|0)) & 65535))|0));
-                    carry = ((((u) & 65535) << ((16 - shiftBits)|0))|0);
+                    r[rstart + i - 1] = ((((((((u & 65535) >> (shiftBits|0)) | (carry & 65535))|0)) & 65535))|0);
+                    carry = (((u & 65535) << ((16 - shiftBits)|0))|0);
                 }
             }
             return carry;
@@ -338,7 +338,7 @@ function(wordCount, reg, negative) {
         shiftWords = (shiftWords < n ? shiftWords : n);
         if (shiftWords != 0) {
             for (var i = n - 1; i >= shiftWords; --i) {
-                r[rstart + i] = (r[rstart + i - shiftWords] & 65535);
+                r[rstart + i] = ((r[rstart + i - shiftWords]) & 65535);
             }
             for (var arrfillI = rstart; arrfillI < (rstart) + (shiftWords); arrfillI++) (r)[arrfillI] = 0;
         }
@@ -347,7 +347,7 @@ function(wordCount, reg, negative) {
         shiftWords = (shiftWords < n ? shiftWords : n);
         if (shiftWords != 0) {
             for (var i = 0; i + shiftWords < n; ++i) {
-                r[rstart + i] = (r[rstart + i + shiftWords] & 65535);
+                r[rstart + i] = ((r[rstart + i + shiftWords]) & 65535);
             }
             rstart = rstart + (n - shiftWords);
             for (var i = 0; i < shiftWords; ++i) {
@@ -388,9 +388,9 @@ function(wordCount, reg, negative) {
     };
     constructor.Increment = function(words1, words1Start, n, words2) {
         {
-            var tmp = (words1[words1Start] & 65535);
+            var tmp = ((words1[words1Start]) & 65535);
             words1[words1Start] = ((tmp + words2) & 65535);
-            if (((words1[words1Start]) & 65535) >= ((tmp) & 65535)) {
+            if (((words1[words1Start]) & 65535) >= (tmp & 65535)) {
                 return 0;
             }
             for (var i = 1; i < n; ++i) {
@@ -404,9 +404,9 @@ function(wordCount, reg, negative) {
     };
     constructor.Decrement = function(words1, words1Start, n, words2) {
         {
-            var tmp = (words1[words1Start] & 65535);
+            var tmp = ((words1[words1Start]) & 65535);
             words1[words1Start] = ((tmp - words2) & 65535);
-            if (((words1[words1Start]) & 65535) <= ((tmp) & 65535)) {
+            if (((words1[words1Start]) & 65535) <= (tmp & 65535)) {
                 return 0;
             }
             for (var i = 1; i < n; ++i) {
@@ -533,7 +533,7 @@ function(wordCount, reg, negative) {
             for (var i = 0; i < n; ++i) {
                 var p;
                 p = ((words1[astart + i]) & 65535) * bint;
-                p = p + ((carry) & 65535);
+                p = p + (carry & 65535);
                 p = p + ((productArr[cstart + i]) & 65535);
                 productArr[cstart + i] = (p & 65535);
                 carry = ((p >> 16)|0);
@@ -548,7 +548,7 @@ function(wordCount, reg, negative) {
             for (var i = 0; i < n; ++i) {
                 var p;
                 p = ((words1[astart + i]) & 65535) * bint;
-                p = p + ((carry) & 65535);
+                p = p + (carry & 65535);
                 productArr[cstart + i] = (p & 65535);
                 carry = ((p >> 16)|0);
             }
@@ -569,7 +569,7 @@ function(wordCount, reg, negative) {
             d = ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 1] = (c & 65535);
@@ -593,7 +593,7 @@ function(wordCount, reg, negative) {
             d = ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 1] = (c & 65535);
@@ -603,10 +603,10 @@ function(wordCount, reg, negative) {
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
             p = ((words1[astart + 1]) & 65535) * ((words1[astart + 1]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 2] = (c & 65535);
@@ -614,12 +614,12 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 1]) & 65535) * ((words1[astart + 2]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 3] = (c & 65535);
@@ -629,10 +629,10 @@ function(wordCount, reg, negative) {
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
             p = ((words1[astart + 2]) & 65535) * ((words1[astart + 2]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 4] = (c & 65535);
@@ -641,7 +641,7 @@ function(wordCount, reg, negative) {
             d = ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + (2 * 4) - 3] = (c & 65535);
@@ -665,7 +665,7 @@ function(wordCount, reg, negative) {
             d = ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 1] = (c & 65535);
@@ -675,10 +675,10 @@ function(wordCount, reg, negative) {
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
             p = ((words1[astart + 1]) & 65535) * ((words1[astart + 1]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 2] = (c & 65535);
@@ -686,12 +686,12 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 1]) & 65535) * ((words1[astart + 2]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 3] = (c & 65535);
@@ -699,16 +699,16 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 1]) & 65535) * ((words1[astart + 3]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
             p = ((words1[astart + 2]) & 65535) * ((words1[astart + 2]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 4] = (c & 65535);
@@ -716,16 +716,16 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 1]) & 65535) * ((words1[astart + 4]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = ((words1[astart + 2]) & 65535) * ((words1[astart + 3]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 5] = (c & 65535);
@@ -733,20 +733,20 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 1]) & 65535) * ((words1[astart + 5]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = ((words1[astart + 2]) & 65535) * ((words1[astart + 4]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
             p = ((words1[astart + 3]) & 65535) * ((words1[astart + 3]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 6] = (c & 65535);
@@ -754,20 +754,20 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 1]) & 65535) * ((words1[astart + 6]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = ((words1[astart + 2]) & 65535) * ((words1[astart + 5]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = ((words1[astart + 3]) & 65535) * ((words1[astart + 4]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 7] = (c & 65535);
@@ -775,20 +775,20 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 2]) & 65535) * ((words1[astart + 6]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = ((words1[astart + 3]) & 65535) * ((words1[astart + 5]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
             p = ((words1[astart + 4]) & 65535) * ((words1[astart + 4]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 8] = (c & 65535);
@@ -796,16 +796,16 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 3]) & 65535) * ((words1[astart + 6]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = ((words1[astart + 4]) & 65535) * ((words1[astart + 5]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 9] = (c & 65535);
@@ -813,16 +813,16 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 4]) & 65535) * ((words1[astart + 6]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
             p = ((words1[astart + 5]) & 65535) * ((words1[astart + 5]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 10] = (c & 65535);
@@ -830,12 +830,12 @@ function(wordCount, reg, negative) {
             c = (p|0);
             d = ((p) >>> 16);
             p = ((words1[astart + 5]) & 65535) * ((words1[astart + 6]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 11] = (c & 65535);
@@ -845,10 +845,10 @@ function(wordCount, reg, negative) {
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
             p = ((words1[astart + 6]) & 65535) * ((words1[astart + 6]) & 65535);
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 12] = (c & 65535);
@@ -857,7 +857,7 @@ function(wordCount, reg, negative) {
             d = ((p) >>> 16);
             d = ((((d << 1) + (((c|0) >> 15) & 1)))|0);
             c <<= 1;
-            e = e + ((c) & 65535);
+            e = e + (c & 65535);
             c = (e|0);
             e = d + ((e) >>> 16);
             result[rstart + 13] = (c & 65535);
@@ -883,11 +883,11 @@ function(wordCount, reg, negative) {
             c = (d|0);
             d = ((d) >>> 16);
             p = a0 * b1;
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = a1 * b0;
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             result[rstart + 1] = (c & 65535);
@@ -1372,8 +1372,8 @@ function(wordCount, reg, negative) {
                 var shorterOffset = countHigh << 1;
                 var longerOffset = countLow << 1;
                 BigInteger.SameSizeMultiply(tempArr, tempStart + shorterOffset, resultArr, resultStart + shorterOffset, resultArr, resultStart, tempArr, tempStart, countLow);
-                var resultTmp0 = (tempArr[tempStart + shorterOffset] & 65535);
-                var resultTmp1 = (tempArr[tempStart + shorterOffset + 1] & 65535);
+                var resultTmp0 = ((tempArr[tempStart + shorterOffset]) & 65535);
+                var resultTmp1 = ((tempArr[tempStart + shorterOffset + 1]) & 65535);
                 BigInteger.SameSizeMultiply(resultArr, resultStart + longerOffset, resultArr, resultStart, words1, words1Start + countLow, words2, words2Start + countLow, countHigh);
                 BigInteger.SameSizeMultiply(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words2, words2Start, countLow);
                 tempArr[tempStart + shorterOffset] = (resultTmp0 & 65535);
@@ -1428,7 +1428,7 @@ function(wordCount, reg, negative) {
                 for (var j = 0; j < words1Count; ++j) {
                     var p;
                     p = ((words1[words1Start + j]) & 65535) * valueBint;
-                    p = p + ((carry) & 65535);
+                    p = p + (carry & 65535);
                     if (i != 0) {
                         p = p + ((resultArr[cstart + j]) & 65535);
                     }
@@ -1450,7 +1450,7 @@ function(wordCount, reg, negative) {
                     for (var j = 0; j < words2Count; ++j) {
                         var p;
                         p = ((words2[words2Start + j]) & 65535) * valueBint;
-                        p = p + ((carry) & 65535);
+                        p = p + (carry & 65535);
                         if (i != 0) {
                             p = p + ((resultArr[cstart + j]) & 65535);
                         }
@@ -1469,7 +1469,7 @@ function(wordCount, reg, negative) {
                     for (var j = 0; j < words1Count; ++j) {
                         var p;
                         p = ((words1[words1Start + j]) & 65535) * valueBint;
-                        p = p + ((carry) & 65535);
+                        p = p + (carry & 65535);
                         if (i != 0) {
                             p = p + ((resultArr[cstart + j]) & 65535);
                         }
@@ -1601,7 +1601,7 @@ function(wordCount, reg, negative) {
         }
     };
     constructor.MakeUint = function(first, second) {
-        return (((((first) & 65535) | ((second|0) << 16))|0));
+        return ((((first & 65535) | ((second|0) << 16))|0));
     };
     constructor.GetLowHalf = function(val) {
         return (val & 65535);
@@ -1683,7 +1683,7 @@ function(wordCount, reg, negative) {
             u = ((words1[words1Start + 1]) & 65535) - (p >>> 16) - ((BigInteger.GetHighHalfAsBorrow(u)) & 65535) - (valueB1int * valueQint);
             words1[words1Start + 1] = ((BigInteger.GetLowHalf(u)) & 65535);
             words1[words1Start + 2] = ((words1[words1Start + 2] + BigInteger.GetHighHalf(u)) & 65535);
-            while (words1[words1Start + 2] != 0 || ((words1[words1Start + 1]) & 65535) > ((valueB1) & 65535) || (words1[words1Start + 1] == valueB1 && ((words1[words1Start]) & 65535) >= ((valueB0) & 65535))) {
+            while (words1[words1Start + 2] != 0 || ((words1[words1Start + 1]) & 65535) > (valueB1 & 65535) || (words1[words1Start + 1] == valueB1 && ((words1[words1Start]) & 65535) >= (valueB0 & 65535))) {
                 u = ((words1[words1Start]) & 65535) - valueB0int;
                 words1[words1Start] = ((BigInteger.GetLowHalf(u)) & 65535);
                 u = ((words1[words1Start + 1]) & 65535) - valueB1int - ((BigInteger.GetHighHalfAsBorrow(u)) & 65535);
@@ -1696,13 +1696,13 @@ function(wordCount, reg, negative) {
     };
     constructor.DivideFourWordsByTwo = function(quotient, quotientStart, words1, words1Start, word2A, word2B, temp) {
         if (word2A == 0 && word2B == 0) {
-            quotient[quotientStart] = (words1[words1Start + 2] & 65535);
-            quotient[quotientStart + 1] = (words1[words1Start + 3] & 65535);
+            quotient[quotientStart] = ((words1[words1Start + 2]) & 65535);
+            quotient[quotientStart + 1] = ((words1[words1Start + 3]) & 65535);
         } else {
-            temp[0] = (words1[words1Start] & 65535);
-            temp[1] = (words1[words1Start + 1] & 65535);
-            temp[2] = (words1[words1Start + 2] & 65535);
-            temp[3] = (words1[words1Start + 3] & 65535);
+            temp[0] = ((words1[words1Start]) & 65535);
+            temp[1] = ((words1[words1Start + 1]) & 65535);
+            temp[2] = ((words1[words1Start + 2]) & 65535);
+            temp[3] = ((words1[words1Start + 3]) & 65535);
             var valueQ1 = ((BigInteger.DivideThreeWordsByTwo(temp, 1, word2A, word2B)) & 65535);
             var valueQ0 = ((BigInteger.DivideThreeWordsByTwo(temp, 0, word2A, word2B)) & 65535);
             quotient[quotientStart] = (valueQ0 & 65535);
@@ -1726,16 +1726,16 @@ function(wordCount, reg, negative) {
                         d = first1MinusFirst0 * (((valueB0|0) - valueB1) & 65535);
                     } else {
                         s = (first1MinusFirst0|0);
-                        d = ((s) & 65535) * (((valueB0|0) - valueB1) & 65535);
+                        d = (s & 65535) * (((valueB0|0) - valueB1) & 65535);
                     }
                     var valueA0B0 = valueA0 * valueB0;
                     c[csi] = (valueA0B0 & 65535);
                     var a0b0high = (valueA0B0 >>> 16);
                     var valueA1B1 = valueA1 * valueB1;
                     var tempInt;
-                    tempInt = a0b0high + ((valueA0B0) & 65535) + ((d) & 65535) + ((valueA1B1) & 65535);
+                    tempInt = a0b0high + (valueA0B0 & 65535) + (d & 65535) + (valueA1B1 & 65535);
                     c[csi + 1] = (tempInt & 65535);
-                    tempInt = valueA1B1 + ((tempInt) >>> 16) + a0b0high + ((d) >>> 16) + ((valueA1B1) >>> 16) - ((s) & 65535);
+                    tempInt = valueA1B1 + ((tempInt) >>> 16) + a0b0high + ((d) >>> 16) + ((valueA1B1) >>> 16) - (s & 65535);
                     c[csi + 2] = (tempInt & 65535);
                     c[csi + 3] = (((tempInt) >>> 16)|0);
                 }
@@ -1746,7 +1746,7 @@ function(wordCount, reg, negative) {
                     var csi = valueCstart + i;
                     if (valueB0 > valueB1) {
                         s = (((valueB0|0) - valueB1) & 65535);
-                        d = first1MinusFirst0 * ((s) & 65535);
+                        d = first1MinusFirst0 * (s & 65535);
                     } else {
                         s = 0;
                         d = (((valueA0|0) - valueA1) & 65535) * (((valueB1|0) - valueB0) & 65535);
@@ -1756,9 +1756,9 @@ function(wordCount, reg, negative) {
                     c[csi] = (valueA0B0 & 65535);
                     var valueA1B1 = valueA1 * valueB1;
                     var tempInt;
-                    tempInt = a0b0high + ((valueA0B0) & 65535) + ((d) & 65535) + ((valueA1B1) & 65535);
+                    tempInt = a0b0high + (valueA0B0 & 65535) + (d & 65535) + (valueA1B1 & 65535);
                     c[csi + 1] = (tempInt & 65535);
-                    tempInt = valueA1B1 + ((tempInt) >>> 16) + a0b0high + ((d) >>> 16) + ((valueA1B1) >>> 16) - ((s) & 65535);
+                    tempInt = valueA1B1 + ((tempInt) >>> 16) + a0b0high + ((d) >>> 16) + ((valueA1B1) >>> 16) - (s & 65535);
                     c[csi + 2] = (tempInt & 65535);
                     c[csi + 3] = (((tempInt) >>> 16)|0);
                 }
@@ -1782,7 +1782,7 @@ function(wordCount, reg, negative) {
                         d = first1MinusFirst0 * (((b0|0) - b1) & 65535);
                     } else {
                         s = (first1MinusFirst0|0);
-                        d = ((s) & 65535) * (((b0|0) - b1) & 65535);
+                        d = (s & 65535) * (((b0|0) - b1) & 65535);
                     }
                     var valueA0B0 = valueA0 * b0;
                     var a0b0high = (valueA0B0 >>> 16);
@@ -1792,15 +1792,15 @@ function(wordCount, reg, negative) {
                     var valueA1B1 = valueA1 * b1;
                     var a1b1low = valueA1B1 & 65535;
                     var a1b1high = (valueA1B1) >>> 16;
-                    tempInt = ((tempInt) >>> 16) + ((valueA0B0) & 65535) + ((d) & 65535) + a1b1low + ((c[csi + 1]) & 65535);
+                    tempInt = ((tempInt) >>> 16) + (valueA0B0 & 65535) + (d & 65535) + a1b1low + ((c[csi + 1]) & 65535);
                     c[csi + 1] = (tempInt & 65535);
-                    tempInt = ((tempInt) >>> 16) + a1b1low + a0b0high + ((d) >>> 16) + a1b1high - ((s) & 65535) + ((c[csi + 2]) & 65535);
+                    tempInt = ((tempInt) >>> 16) + a1b1low + a0b0high + ((d) >>> 16) + a1b1high - (s & 65535) + ((c[csi + 2]) & 65535);
                     c[csi + 2] = (tempInt & 65535);
                     tempInt = ((tempInt) >>> 16) + a1b1high + ((c[csi + 3]) & 65535);
                     c[csi + 3] = (tempInt & 65535);
                     if ((tempInt >> 16) != 0) {
                         c[csi + 4] = ((c[csi + 4] + 1) & 65535);
-                        c[csi + 5] = (((((c[csi + 5] + (((c[csi + 4] == 0) ? 1 : 0)|0)) & 65535))|0));
+                        c[csi + 5] = ((((c[csi + 5] + (((c[csi + 4] == 0) ? 1 : 0)|0)) & 65535))|0);
                     }
                 }
             } else {
@@ -1810,7 +1810,7 @@ function(wordCount, reg, negative) {
                     var csi = valueCstart + i;
                     if (valueB0 > valueB1) {
                         s = (((valueB0|0) - valueB1) & 65535);
-                        d = first1MinusFirst0 * ((s) & 65535);
+                        d = first1MinusFirst0 * (s & 65535);
                     } else {
                         s = 0;
                         d = (((valueA0|0) - valueA1) & 65535) * (((valueB1|0) - valueB0) & 65535);
@@ -1823,15 +1823,15 @@ function(wordCount, reg, negative) {
                     var valueA1B1 = valueA1 * valueB1;
                     var a1b1low = valueA1B1 & 65535;
                     var a1b1high = (valueA1B1 >>> 16);
-                    tempInt = ((tempInt) >>> 16) + ((valueA0B0) & 65535) + ((d) & 65535) + a1b1low + ((c[csi + 1]) & 65535);
+                    tempInt = ((tempInt) >>> 16) + (valueA0B0 & 65535) + (d & 65535) + a1b1low + ((c[csi + 1]) & 65535);
                     c[csi + 1] = (tempInt & 65535);
-                    tempInt = ((tempInt) >>> 16) + a1b1low + a0b0high + ((d) >>> 16) + a1b1high - ((s) & 65535) + ((c[csi + 2]) & 65535);
+                    tempInt = ((tempInt) >>> 16) + a1b1low + a0b0high + ((d) >>> 16) + a1b1high - (s & 65535) + ((c[csi + 2]) & 65535);
                     c[csi + 2] = (tempInt & 65535);
                     tempInt = ((tempInt) >>> 16) + a1b1high + ((c[csi + 3]) & 65535);
                     c[csi + 3] = (tempInt & 65535);
                     if ((tempInt >> 16) != 0) {
                         c[csi + 4] = ((c[csi + 4] + 1) & 65535);
-                        c[csi + 5] = (((((c[csi + 5] + (((c[csi + 4] == 0) ? 1 : 0)|0)) & 65535))|0));
+                        c[csi + 5] = ((((c[csi + 5] + (((c[csi + 4] == 0) ? 1 : 0)|0)) & 65535))|0);
                     }
                 }
             }
@@ -1881,7 +1881,7 @@ function(wordCount, reg, negative) {
                     quotientArr[quotientStart + words1Count - words2Count] = 0;
                 }
                 while (tempArr[words1Count] != 0 || BigInteger.Compare(tempArr, ((tempStart + words1Count - words2Count)|0), tempArr, valueTBstart, words2Count) >= 0) {
-                    tempArr[words1Count] = (((((tempArr[words1Count] - ((BigInteger.Subtract(tempArr, tempStart + words1Count - words2Count, tempArr, tempStart + words1Count - words2Count, tempArr, valueTBstart, words2Count))|0)) & 65535))|0));
+                    tempArr[words1Count] = ((((tempArr[words1Count] - ((BigInteger.Subtract(tempArr, tempStart + words1Count - words2Count, tempArr, tempStart + words1Count - words2Count, tempArr, valueTBstart, words2Count))|0)) & 65535))|0);
                     if (quotientArr != null) {
                         quotientArr[quotientStart + words1Count - words2Count] = ((quotientArr[quotientStart + words1Count - words2Count] + 1) & 65535);
                     }
@@ -1916,10 +1916,10 @@ function(wordCount, reg, negative) {
                     }
                     BigInteger.Subtract(tempArr, valueRstart2, tempArr, valueRstart2, tempArr, valueTPstart, n + 2);
                     while (tempArr[valueRstart2 + n] != 0 || BigInteger.Compare(tempArr, valueRstart2, tempArr, valueTBstart, n) >= 0) {
-                        tempArr[valueRstart2 + n] = (((((tempArr[valueRstart2 + n] - ((BigInteger.Subtract(tempArr, valueRstart2, tempArr, valueRstart2, tempArr, valueTBstart, n))|0)) & 65535))|0));
+                        tempArr[valueRstart2 + n] = ((((tempArr[valueRstart2 + n] - ((BigInteger.Subtract(tempArr, valueRstart2, tempArr, valueRstart2, tempArr, valueTBstart, n))|0)) & 65535))|0);
                         if (quotientArr != null) {
                             quotientArr[qs] = ((quotientArr[qs] + 1) & 65535);
-                            quotientArr[qs + 1] = (((((quotientArr[qs + 1] + (((quotientArr[qs] == 0) ? 1 : 0)|0)) & 65535))|0));
+                            quotientArr[qs + 1] = ((((quotientArr[qs + 1] + (((quotientArr[qs] == 0) ? 1 : 0)|0)) & 65535))|0);
                         }
                     }
                 }
@@ -1966,7 +1966,7 @@ function(wordCount, reg, negative) {
                 var index2 = littleEndian ? i + 1 : len - 2 - i;
                 newreg[j] = (bytes[index] & 255);
                 if (index2 >= 0 && index2 < len) {
-                    newreg[j] = (((((newreg[j] | (((((bytes[index2])|0) << 8)|0))) & 65535))|0));
+                    newreg[j] = ((((newreg[j] | (((((bytes[index2])|0) << 8)|0))) & 65535))|0);
                 }
             }
         } else {
@@ -1975,7 +1975,7 @@ function(wordCount, reg, negative) {
                 var index2 = littleEndian ? i + 1 : len - 2 - i;
                 newreg[j] = (bytes[index] & 255);
                 if (index2 >= 0 && index2 < len) {
-                    newreg[j] = (((((newreg[j] | (((((bytes[index2])|0) << 8)|0))) & 65535))|0));
+                    newreg[j] = ((((newreg[j] | (((((bytes[index2])|0) << 8)|0))) & 65535))|0);
                 } else {
 
                     newreg[j] = ((newreg[j] | (65280)) & 65535);
@@ -2560,20 +2560,20 @@ function(wordCount, reg, negative) {
             c = (d|0);
             d = ((d) >>> 16);
             p = bitlenLow * 8346;
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = bitlenHigh * 34043;
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             d = d + ((p) >>> 16);
             c = (d|0);
             d = ((d) >>> 16);
             p = bitlenLow * 154;
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = bitlenHigh * 8346;
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             c = (p|0);
             d = d + ((p) >>> 16);
             p = (c) & 65535;
@@ -2582,10 +2582,10 @@ function(wordCount, reg, negative) {
             c = (d|0);
             d = ((d) >>> 16);
             p = bitlenHigh * 154;
-            p = p + ((c) & 65535);
+            p = p + (c & 65535);
             resultHigh = (p|0);
             var result = (resultLow) & 65535;
-            result |= ((resultHigh) & 65535) << 16;
+            result |= (resultHigh & 65535) << 16;
             return (result & 2147483647) >> 9;
         }
     };
@@ -3076,7 +3076,7 @@ function(wordCount, reg, negative) {
                         var p;
                         {
                             p = ((bigint[j]) & 65535) * radix;
-                            p = p + ((carry) & 65535);
+                            p = p + (carry & 65535);
                             bigint[j] = (p & 65535);
                             carry = ((p >> 16)|0);
                         }

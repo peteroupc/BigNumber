@@ -33,6 +33,10 @@ the same methods for BigInteger, ExtendedDecimal, and ExtendedFloat.
 History
 ------------
 
+Version 1.2.1
+
+- Fixed bug in the result of dividing certain numbers
+
 Version 1.2
 
 - Added Ulp, Precision, MovePointLeft, MovePointRight, and ScaleToPowerOfTwo/-Ten methods to
