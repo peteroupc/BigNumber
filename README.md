@@ -36,6 +36,7 @@ History
 Version 1.2.1
 
 - Fixed bug in the result of dividing certain numbers
+- Old package name "bignumber-petero" removed entirely.
 
 Version 1.2
 
