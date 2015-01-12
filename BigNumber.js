@@ -388,7 +388,7 @@ function(wordCount, reg, negative) {
     };
     constructor.Increment = function(words1, words1Start, n, words2) {
         {
-            var tmp = words1[words1Start];
+            var tmp = (words1[words1Start] & 65535);
             words1[words1Start] = (((tmp + words2) & 65535));
             if (((words1[words1Start]) & 65535) >= ((tmp) & 65535)) {
                 return 0;
@@ -404,7 +404,7 @@ function(wordCount, reg, negative) {
     };
     constructor.Decrement = function(words1, words1Start, n, words2) {
         {
-            var tmp = words1[words1Start];
+            var tmp = (words1[words1Start] & 65535);
             words1[words1Start] = (((tmp - words2) & 65535));
             if (((words1[words1Start]) & 65535) <= ((tmp) & 65535)) {
                 return 0;
@@ -1372,8 +1372,8 @@ function(wordCount, reg, negative) {
                 var shorterOffset = countHigh << 1;
                 var longerOffset = countLow << 1;
                 BigInteger.SameSizeMultiply(tempArr, tempStart + shorterOffset, resultArr, resultStart + shorterOffset, resultArr, resultStart, tempArr, tempStart, countLow);
-                var resultTmp0 = tempArr[tempStart + shorterOffset];
-                var resultTmp1 = tempArr[tempStart + shorterOffset + 1];
+                var resultTmp0 = (tempArr[tempStart + shorterOffset] & 65535);
+                var resultTmp1 = (tempArr[tempStart + shorterOffset + 1] & 65535);
                 BigInteger.SameSizeMultiply(resultArr, resultStart + longerOffset, resultArr, resultStart, words1, words1Start + countLow, words2, words2Start + countLow, countHigh);
                 BigInteger.SameSizeMultiply(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words2, words2Start, countLow);
                 tempArr[tempStart + shorterOffset] = (resultTmp0 & 65535);
@@ -1490,12 +1490,20 @@ function(wordCount, reg, negative) {
                 if (diff > bcount) {
                     BigInteger.SameSizeMultiply(tempArr, tempStart, tempArr, tempStart + bcount + bcount, words1, astart + i, words2, bstart, bcount);
                     BigInteger.AddUnevenSize(tempArr, tempStart, tempArr, tempStart, bcount + bcount, productArr, cstart + carryPos, bcount);
-                    for (var arrfillI = 0; arrfillI < bcount + bcount; arrfillI++) (productArr)[cstart + i + arrfillI] = tempArr[tempStart + arrfillI];
+                    {
+                        var arrfillSrc = tempStart;
+                        var arrfillDst = cstart + i;
+                        for (var arrfillI = 0; arrfillI < bcount + bcount; arrfillI++) productArr[arrfillDst + arrfillI] = tempArr[arrfillSrc + arrfillI];
+                    }
                     carryPos = carryPos + (bcount);
                 } else {
                     BigInteger.AsymmetricMultiply(tempArr, tempStart, tempArr, tempStart + diff + bcount, words1, astart + i, diff, words2, bstart, bcount);
                     BigInteger.AddUnevenSize(tempArr, tempStart, tempArr, tempStart, diff + bcount, productArr, cstart + carryPos, bcount);
-                    for (var arrfillI = 0; arrfillI < diff + bcount; arrfillI++) (productArr)[cstart + i + arrfillI] = tempArr[tempStart + arrfillI];
+                    {
+                        var arrfillSrc = tempStart;
+                        var arrfillDst = cstart + i;
+                        for (var arrfillI = 0; arrfillI < diff + bcount; arrfillI++) productArr[arrfillDst + arrfillI] = tempArr[arrfillSrc + arrfillI];
+                    }
                 }
             }
         }
@@ -1528,7 +1536,7 @@ function(wordCount, reg, negative) {
                     for (var arrfillI = resultStart; arrfillI < (resultStart) + (words2Count + 2); arrfillI++) (resultArr)[arrfillI] = 0;
                     return;
                 case 1:
-                    for (var arrfillI = 0; arrfillI < (words2Count|0); arrfillI++) (resultArr)[resultStart + arrfillI] = words2[words2Start + arrfillI];
+                    for (var arrfillI = 0; arrfillI < (words2Count|0); arrfillI++) resultArr[resultStart + arrfillI] = words2[words2Start + arrfillI];
                     resultArr[resultStart + words2Count] = 0;
                     resultArr[resultStart + words2Count + 1] = 0;
                     return;
@@ -1556,7 +1564,11 @@ function(wordCount, reg, negative) {
             if (wordsRem == 0) {
                 if (evenmult == 0) {
                     BigInteger.SameSizeMultiply(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words2, words2Start, words1Count);
-                    for (var arrfillI = 0; arrfillI < words1Count; arrfillI++) (tempArr)[((tempStart + (words1Count << 1))|0) + arrfillI] = resultArr[resultStart + words1Count + arrfillI];
+                    {
+                        var arrfillSrc = resultStart + words1Count;
+                        var arrfillDst = ((tempStart + (words1Count << 1))|0);
+                        for (var arrfillI = 0; arrfillI < words1Count; arrfillI++) tempArr[arrfillDst + arrfillI] = resultArr[arrfillSrc + arrfillI];
+                    }
                     for (i = words1Count << 1; i < words2Count; i += words1Count << 1) {
                         BigInteger.SameSizeMultiply(tempArr, tempStart + words1Count + i, tempArr, tempStart, words1, words1Start, words2, words2Start + i, words1Count);
                     }
@@ -1579,7 +1591,7 @@ function(wordCount, reg, negative) {
             } else if (words1Count + 1 == words2Count || (words1Count + 2 == words2Count && words2[words2Start + words2Count - 1] == 0)) {
                 for (var arrfillI = resultStart; arrfillI < (resultStart) + (words1Count + words2Count); arrfillI++) (resultArr)[arrfillI] = 0;
                 BigInteger.SameSizeMultiply(resultArr, resultStart, tempArr, tempStart, words1, words1Start, words2, words2Start, words1Count);
-                var carry = BigInteger.LinearMultiplyAdd(resultArr, resultStart + words1Count, words1, words1Start, words2[words2Start + words1Count], words1Count);
+                var carry = ((BigInteger.LinearMultiplyAdd(resultArr, resultStart + words1Count, words1, words1Start, words2[words2Start + words1Count], words1Count)) & 65535);
                 resultArr[resultStart + words1Count + words1Count] = (carry & 65535);
             } else {
                 var t2 = [];
@@ -1691,8 +1703,8 @@ function(wordCount, reg, negative) {
             temp[1] = (words1[words1Start + 1] & 65535);
             temp[2] = (words1[words1Start + 2] & 65535);
             temp[3] = (words1[words1Start + 3] & 65535);
-            var valueQ1 = BigInteger.DivideThreeWordsByTwo(temp, 1, word2A, word2B);
-            var valueQ0 = BigInteger.DivideThreeWordsByTwo(temp, 0, word2A, word2B);
+            var valueQ1 = ((BigInteger.DivideThreeWordsByTwo(temp, 1, word2A, word2B)) & 65535);
+            var valueQ0 = ((BigInteger.DivideThreeWordsByTwo(temp, 0, word2A, word2B)) & 65535);
             quotient[quotientStart] = (valueQ0 & 65535);
             quotient[quotientStart + 1] = (valueQ1 & 65535);
         }
@@ -1847,13 +1859,21 @@ function(wordCount, reg, negative) {
             var shiftWords = ((words2[words2Start + words2Count - 1] == 0 ? 1 : 0)|0);
             tempArr[valueTBstart] = 0;
             tempArr[valueTBstart + words2Count - 1] = 0;
-            for (var arrfillI = 0; arrfillI < words2Count - shiftWords; arrfillI++) (tempArr)[((valueTBstart + shiftWords)|0) + arrfillI] = words2[words2Start + arrfillI];
-            var shiftBits = ((16 - BigInteger.BitPrecision(tempArr[valueTBstart + words2Count - 1]))|0);
+            {
+                var arrfillSrc = words2Start;
+                var arrfillDst = ((valueTBstart + shiftWords)|0);
+                for (var arrfillI = 0; arrfillI < words2Count - shiftWords; arrfillI++) tempArr[arrfillDst + arrfillI] = words2[arrfillSrc + arrfillI];
+            }
+            var shiftBits = ((16 - BigInteger.BitPrecision(tempArr[valueTBstart + words2Count - 1])) & 65535);
             BigInteger.ShiftWordsLeftByBits(tempArr, valueTBstart, words2Count, shiftBits);
             tempArr[0] = 0;
             tempArr[words1Count] = 0;
             tempArr[words1Count + 1] = 0;
-            for (var arrfillI = 0; arrfillI < words1Count; arrfillI++) (tempArr)[((tempStart + shiftWords)|0) + arrfillI] = words1[words1Start + arrfillI];
+            {
+                var arrfillSrc = words1Start;
+                var arrfillDst = ((tempStart + shiftWords)|0);
+                for (var arrfillI = 0; arrfillI < words1Count; arrfillI++) tempArr[arrfillDst + arrfillI] = words1[arrfillSrc + arrfillI];
+            }
             BigInteger.ShiftWordsLeftByBits(tempArr, tempStart, words1Count + 2, shiftBits);
             if (tempArr[tempStart + words1Count + 1] == 0 && ((tempArr[tempStart + words1Count]) & 65535) <= 1) {
                 if (quotientArr != null) {
@@ -1869,8 +1889,8 @@ function(wordCount, reg, negative) {
             } else {
                 words1Count = words1Count + (2);
             }
-            var valueBT0 = ((tempArr[valueTBstart + words2Count - 2] + 1)|0);
-            var valueBT1 = ((tempArr[valueTBstart + words2Count - 1] + ((valueBT0 == 0 ? 1 : 0)|0))|0);
+            var valueBT0 = ((tempArr[valueTBstart + words2Count - 2] + 1) & 65535);
+            var valueBT1 = ((((tempArr[valueTBstart + words2Count - 1] + ((valueBT0 == 0 ? 1 : 0)|0)) & 65535))|0);
             var valueTAtomic = [0, 0, 0, 0];
             for (var i = words1Count - 2; i >= words2Count; i -= 2) {
                 var qs = (quotientArr == null) ? 0 : quotientStart + i - words2Count;
@@ -1881,7 +1901,7 @@ function(wordCount, reg, negative) {
                     var quotient0 = quot[qs];
                     var quotient1 = quot[qs + 1];
                     if (quotient1 == 0) {
-                        var carry = BigInteger.LinearMultiply(tempArr, valueTPstart, tempArr, valueTBstart, (quotient0|0), n);
+                        var carry = ((((BigInteger.LinearMultiply(tempArr, valueTPstart, tempArr, valueTBstart, (quotient0|0), n)) & 65535))|0);
                         tempArr[valueTPstart + n] = (carry & 65535);
                         tempArr[valueTPstart + n + 1] = 0;
                     } else if (n == 2) {
@@ -1905,7 +1925,11 @@ function(wordCount, reg, negative) {
                 }
             }
             if (remainderArr != null) {
-                for (var arrfillI = 0; arrfillI < words2Count; arrfillI++) (remainderArr)[remainderStart + arrfillI] = tempArr[((tempStart + shiftWords)|0) + arrfillI];
+                {
+                    var arrfillSrc = ((tempStart + shiftWords)|0);
+                    var arrfillDst = remainderStart;
+                    for (var arrfillI = 0; arrfillI < words2Count; arrfillI++) remainderArr[arrfillDst + arrfillI] = tempArr[arrfillSrc + arrfillI];
+                }
                 BigInteger.ShiftWordsRightByBits(remainderArr, remainderStart, words2Count, shiftBits);
             }
         }
@@ -1979,7 +2003,7 @@ function(wordCount, reg, negative) {
         if (size > a.length) {
             var newa = [];
             for (var arrfillI = 0; arrfillI < size; arrfillI++) newa[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < a.length; arrfillI++) (newa)[0 + arrfillI] = a[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < a.length; arrfillI++) newa[arrfillI] = a[arrfillI];
             return newa;
         }
         return a;
@@ -2043,7 +2067,7 @@ function(wordCount, reg, negative) {
         } else {
             var regdata = [];
             for (var arrfillI = 0; arrfillI < this.words.length; arrfillI++) regdata[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < this.words.length; arrfillI++) (regdata)[0 + arrfillI] = this.words[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < this.words.length; arrfillI++) regdata[arrfillI] = this.words[arrfillI];
             BigInteger.TwosComplement(regdata, 0, ((regdata.length)|0));
             var byteCount = regdata.length * 2;
             for (var i = regdata.length - 1; i >= 0; --i) {
@@ -2095,13 +2119,13 @@ function(wordCount, reg, negative) {
         if (!this.negative) {
             var ret = [];
             for (var arrfillI = 0; arrfillI < BigInteger.RoundupSize(numWords + BigInteger.BitsToWords(numberBits|0)); arrfillI++) ret[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < numWords; arrfillI++) (ret)[shiftWords + arrfillI] = this.words[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < numWords; arrfillI++) ret[shiftWords + arrfillI] = this.words[arrfillI];
             BigInteger.ShiftWordsLeftByBits(ret, (shiftWords|0), numWords + BigInteger.BitsToWords(shiftBits), shiftBits);
             return new BigInteger(BigInteger.CountWords(ret, ret.length), ret, false);
         } else {
             var ret = [];
             for (var arrfillI = 0; arrfillI < BigInteger.RoundupSize(numWords + BigInteger.BitsToWords(numberBits|0)); arrfillI++) ret[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < numWords; arrfillI++) (ret)[0 + arrfillI] = this.words[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < numWords; arrfillI++) ret[arrfillI] = this.words[arrfillI];
             BigInteger.TwosComplement(ret, 0, ((ret.length)|0));
             BigInteger.ShiftWordsLeftByWords(ret, 0, numWords + shiftWords, shiftWords);
             BigInteger.ShiftWordsLeftByBits(ret, (shiftWords|0), numWords + BigInteger.BitsToWords(shiftBits), shiftBits);
@@ -2125,7 +2149,7 @@ function(wordCount, reg, negative) {
         if (this.negative) {
             ret = [];
             for (var arrfillI = 0; arrfillI < this.words.length; arrfillI++) ret[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < numWords; arrfillI++) (ret)[0 + arrfillI] = this.words[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < numWords; arrfillI++) ret[arrfillI] = this.words[arrfillI];
             BigInteger.TwosComplement(ret, 0, ((ret.length)|0));
             BigInteger.ShiftWordsRightByWordsSignExtend(ret, 0, numWords, shiftWords);
             if (numWords > shiftWords) {
@@ -2139,7 +2163,7 @@ function(wordCount, reg, negative) {
             }
             ret = [];
             for (var arrfillI = 0; arrfillI < this.words.length; arrfillI++) ret[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < numWords - shiftWords; arrfillI++) (ret)[0 + arrfillI] = this.words[shiftWords + arrfillI];
+            for (var arrfillI = 0; arrfillI < numWords - shiftWords; arrfillI++) ret[arrfillI] = this.words[shiftWords + arrfillI];
             if (shiftBits != 0) {
                 BigInteger.ShiftWordsRightByBits(ret, 0, numWords - shiftWords, shiftBits);
             }
@@ -2391,7 +2415,7 @@ function(wordCount, reg, negative) {
         if (wc == 0) {
             return 0;
         }
-        var s = this.words[wc - 1];
+        var s = ((this.words[wc - 1]) & 65535);
         wc = (wc - 1) << 1;
         return (s == 0) ? wc : (((s >> 8) == 0) ? wc + 1 : wc + 2);
     };
@@ -2684,7 +2708,7 @@ function(wordCount, reg, negative) {
                         if (quo != 0) {
                             tempReg = [];
                             for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) tempReg[arrfillI] = 0;
-                            for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) (tempReg)[0 + arrfillI] = this.words[0 + arrfillI];
+                            for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) tempReg[arrfillI] = this.words[arrfillI];
 
                             currentCount = wci + 1;
                             tempReg[wci] = (quo & 65535);
@@ -2723,7 +2747,7 @@ function(wordCount, reg, negative) {
             }
             var tempReg = [];
             for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) tempReg[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) (tempReg)[0 + arrfillI] = this.words[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) tempReg[arrfillI] = this.words[arrfillI];
             var numWordCount = tempReg.length;
             while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
                 --numWordCount;
@@ -2843,7 +2867,7 @@ function(wordCount, reg, negative) {
 
             var tempReg = [];
             for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) tempReg[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) (tempReg)[0 + arrfillI] = this.words[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < tempReg.length; arrfillI++) tempReg[arrfillI] = this.words[arrfillI];
             var numWordCount = tempReg.length;
             while (numWordCount != 0 && tempReg[numWordCount - 1] == 0) {
                 --numWordCount;
@@ -3083,7 +3107,7 @@ function(wordCount, reg, negative) {
     prototype['getLowestSetBit'] = prototype.getLowestSetBit = function() {
         var retSetBit = 0;
         for (var i = 0; i < this.wordCount; ++i) {
-            var c = this.words[i];
+            var c = ((this.words[i]) & 65535);
             if (c == 0) {
                 retSetBit = retSetBit + (16);
             } else {
@@ -3245,14 +3269,14 @@ function(wordCount, reg, negative) {
             } else if (addendCount > augendCount) {
 
                 carry = BigInteger.AddOneByOne(sumreg, 0, this.words, 0, bigintAugend.words, 0, augendCount);
-                for (var arrfillI = 0; arrfillI < addendCount - augendCount; arrfillI++) (sumreg)[augendCount + arrfillI] = this.words[augendCount + arrfillI];
+                for (var arrfillI = 0; arrfillI < addendCount - augendCount; arrfillI++) sumreg[augendCount + arrfillI] = this.words[augendCount + arrfillI];
                 if (carry != 0) {
                     carry = BigInteger.Increment(sumreg, augendCount, addendCount - augendCount, (carry|0));
                 }
             } else {
 
                 carry = BigInteger.AddOneByOne(sumreg, 0, this.words, 0, bigintAugend.words, 0, (addendCount|0));
-                for (var arrfillI = 0; arrfillI < augendCount - addendCount; arrfillI++) (sumreg)[addendCount + arrfillI] = bigintAugend.words[addendCount + arrfillI];
+                for (var arrfillI = 0; arrfillI < augendCount - addendCount; arrfillI++) sumreg[addendCount + arrfillI] = bigintAugend.words[addendCount + arrfillI];
                 if (carry != 0) {
                     carry = BigInteger.Increment(sumreg, addendCount, ((augendCount - addendCount)|0), (carry|0));
                 }
@@ -3302,12 +3326,12 @@ function(wordCount, reg, negative) {
         } else if (words1Size > words2Size) {
 
             borrow = ((BigInteger.Subtract(diffReg, 0, minuend.words, 0, subtrahend.words, 0, words2Size))|0);
-            for (var arrfillI = 0; arrfillI < words1Size - words2Size; arrfillI++) (diffReg)[words2Size + arrfillI] = minuend.words[words2Size + arrfillI];
+            for (var arrfillI = 0; arrfillI < words1Size - words2Size; arrfillI++) diffReg[words2Size + arrfillI] = minuend.words[words2Size + arrfillI];
             BigInteger.Decrement(diffReg, words2Size, ((words1Size - words2Size)|0), borrow);
         } else {
 
             borrow = ((BigInteger.Subtract(diffReg, 0, subtrahend.words, 0, minuend.words, 0, words1Size))|0);
-            for (var arrfillI = 0; arrfillI < words2Size - words1Size; arrfillI++) (diffReg)[words1Size + arrfillI] = subtrahend.words[words1Size + arrfillI];
+            for (var arrfillI = 0; arrfillI < words2Size - words1Size; arrfillI++) diffReg[words1Size + arrfillI] = subtrahend.words[words1Size + arrfillI];
             BigInteger.Decrement(diffReg, words1Size, ((words2Size - words1Size)|0), borrow);
             diffNeg = true;
         }
@@ -3332,7 +3356,7 @@ function(wordCount, reg, negative) {
 
                 var newreg = [];
                 for (var arrfillI = 0; arrfillI < newLength; arrfillI++) newreg[arrfillI] = 0;
-                for (var arrfillI = 0; arrfillI < (newLength < reg.length ? newLength : reg.length); arrfillI++) (newreg)[0 + arrfillI] = reg[0 + arrfillI];
+                for (var arrfillI = 0; arrfillI < (newLength < reg.length ? newLength : reg.length); arrfillI++) newreg[arrfillI] = reg[arrfillI];
                 reg = newreg;
             }
         }
@@ -3604,7 +3628,7 @@ function(wordCount, reg, negative) {
             return this;
         }
         if (words2Size == 1) {
-            var shortRemainder = BigInteger.FastRemainder(this.words, this.wordCount, divisor.words[0]);
+            var shortRemainder = ((BigInteger.FastRemainder(this.words, this.wordCount, divisor.words[0])) & 65535);
             var smallRemainder = (shortRemainder) & 65535;
             if (this.negative) {
                 smallRemainder = -smallRemainder;
@@ -3812,7 +3836,7 @@ function(value) {
         prototype.GetLastWordsInternal = function(numWords32Bit) {
             var ret = [];
             for (var arrfillI = 0; arrfillI < numWords32Bit; arrfillI++) ret[arrfillI] = 0;
-            for (var arrfillI = 0; arrfillI < (numWords32Bit < this.wordCount ? numWords32Bit : this.wordCount); arrfillI++) (ret)[0 + arrfillI] = this.data[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < (numWords32Bit < this.wordCount ? numWords32Bit : this.wordCount); arrfillI++) ret[arrfillI] = this.data[arrfillI];
             return ret;
         };
         prototype.CanFitInInt32 = function() {
@@ -3827,7 +3851,7 @@ function(value) {
                 mbi.data = [];
                 for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) mbi.data[arrfillI] = 0;
             }
-            for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) (mbi.data)[0 + arrfillI] = this.data[0 + arrfillI];
+            for (var arrfillI = 0; arrfillI < this.wordCount; arrfillI++) mbi.data[arrfillI] = this.data[arrfillI];
             mbi.wordCount = this.wordCount;
             return mbi;
         };
@@ -3916,7 +3940,7 @@ function(value) {
                     if (this.wordCount >= this.data.length) {
                         var newdata = [];
                         for (var arrfillI = 0; arrfillI < this.wordCount + 20; arrfillI++) newdata[arrfillI] = 0;
-                        for (var arrfillI = 0; arrfillI < this.data.length; arrfillI++) (newdata)[0 + arrfillI] = this.data[0 + arrfillI];
+                        for (var arrfillI = 0; arrfillI < this.data.length; arrfillI++) newdata[arrfillI] = this.data[arrfillI];
                         this.data = newdata;
                     }
                     this.data[this.wordCount] = carry;
@@ -3991,7 +4015,7 @@ function(value) {
                     if (this.data.length < neededSize) {
                         var newdata = [];
                         for (var arrfillI = 0; arrfillI < neededSize + 20; arrfillI++) newdata[arrfillI] = 0;
-                        for (var arrfillI = 0; arrfillI < this.data.length; arrfillI++) (newdata)[0 + arrfillI] = this.data[0 + arrfillI];
+                        for (var arrfillI = 0; arrfillI < this.data.length; arrfillI++) newdata[arrfillI] = this.data[arrfillI];
                         this.data = newdata;
                     }
                     neededSize = (this.wordCount < other.wordCount) ? this.wordCount : other.wordCount;
@@ -4064,7 +4088,7 @@ function(value) {
                         if (this.wordCount >= this.data.length) {
                             var newdata = [];
                             for (var arrfillI = 0; arrfillI < this.wordCount + 20; arrfillI++) newdata[arrfillI] = 0;
-                            for (var arrfillI = 0; arrfillI < this.data.length; arrfillI++) (newdata)[0 + arrfillI] = this.data[0 + arrfillI];
+                            for (var arrfillI = 0; arrfillI < this.data.length; arrfillI++) newdata[arrfillI] = this.data[arrfillI];
                             this.data = newdata;
                         }
                         this.data[this.wordCount] = carry;
