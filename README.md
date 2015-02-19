@@ -1,6 +1,10 @@
 BigNumber
 =========
 
+If you like this software, consider donating to me at this link: http://upokecenter.dreamhosters.com/articles/donate-now-2/
+
+----
+
 An arbitrary-precision arithmetic library for JavaScript.
 
 Installation

@@ -327,7 +327,7 @@ function(wordCount, reg, negative) {
             if (shiftBits != 0) {
                 for (var i = n; i > 0; --i) {
                     u = r[rstart + i - 1];
-                    r[rstart + i - 1] = (((((((((u & 65535) >> (shiftBits|0)) | (carry & 65535)))|0)) & 65535))|0);
+                    r[rstart + i - 1] = ((((((((u & 65535) >> (shiftBits|0)) | (carry & 65535))|0)) & 65535))|0);
                     carry = (((u & 65535) << ((16 - shiftBits)|0))|0);
                 }
             }
@@ -1537,20 +1537,20 @@ function(wordCount, reg, negative) {
                     return;
                 case 1:
                     for (var arrfillI = 0; arrfillI < (words2Count|0); arrfillI++) resultArr[resultStart + arrfillI] = words2[words2Start + arrfillI];
-                    resultArr[resultStart + words2Count] = (0 & 65535);
-                    resultArr[resultStart + words2Count + 1] = (0 & 65535);
+                    resultArr[resultStart + words2Count] = 0;
+                    resultArr[resultStart + words2Count + 1] = 0;
                     return;
                 default:
                     resultArr[resultStart + words2Count] = ((BigInteger.LinearMultiply(resultArr, resultStart, words2, words2Start, words1[words1Start], words2Count)) & 65535);
-                    resultArr[resultStart + words2Count + 1] = (0 & 65535);
+                    resultArr[resultStart + words2Count + 1] = 0;
                     return;
             }
         }
         if (words1Count == 2 && (words2Count & 1) == 0) {
             var a0 = (words1[words1Start]) & 65535;
             var a1 = (words1[words1Start + 1]) & 65535;
-            resultArr[resultStart + words2Count] = (0 & 65535);
-            resultArr[resultStart + words2Count + 1] = (0 & 65535);
+            resultArr[resultStart + words2Count] = 0;
+            resultArr[resultStart + words2Count + 1] = 0;
             BigInteger.AtomicMultiplyOpt(resultArr, resultStart, a0, a1, words2, words2Start, 0, words2Count);
             BigInteger.AtomicMultiplyAddOpt(resultArr, resultStart, a0, a1, words2, words2Start, 2, words2Count);
             return;
@@ -1643,7 +1643,7 @@ function(wordCount, reg, negative) {
         for (var i = 0; i < 32; ++i) {
             tmpInt = dividendHigh >> 31;
             dividendHigh <<= 1;
-            dividendHigh = ((((dividendHigh | ((dividendLow >> 31) & 1)))|0));
+            dividendHigh = (((dividendHigh | ((dividendLow >> 31) & 1))|0));
             dividendLow <<= 1;
             tmpInt |= dividendHigh;
             if (((tmpInt >> 31) != 0) || (tmpInt >= intDivisor)) {
@@ -1729,15 +1729,15 @@ function(wordCount, reg, negative) {
                         d = (s & 65535) * (((valueB0|0) - valueB1) & 65535);
                     }
                     var valueA0B0 = valueA0 * valueB0;
-                    c[csi] = (((valueA0B0)) & 65535);
+                    c[csi] = ((valueA0B0) & 65535);
                     var a0b0high = (valueA0B0 >>> 16);
                     var valueA1B1 = valueA1 * valueB1;
                     var tempInt;
                     tempInt = a0b0high + (valueA0B0 & 65535) + (d & 65535) + (valueA1B1 & 65535);
-                    c[csi + 1] = (((tempInt)) & 65535);
+                    c[csi + 1] = ((tempInt) & 65535);
                     tempInt = valueA1B1 + ((tempInt) >>> 16) + a0b0high + ((d) >>> 16) + ((valueA1B1) >>> 16) - (s & 65535);
-                    c[csi + 2] = (((tempInt)) & 65535);
-                    c[csi + 3] = ((((((tempInt) >>> 16))))|0);
+                    c[csi + 2] = ((tempInt) & 65535);
+                    c[csi + 3] = ((((tempInt) >>> 16))|0);
                 }
             } else {
                 for (var i = istart; i < iend; i += 4) {
@@ -1753,14 +1753,14 @@ function(wordCount, reg, negative) {
                     }
                     var valueA0B0 = valueA0 * valueB0;
                     var a0b0high = (valueA0B0 >>> 16);
-                    c[csi] = (((valueA0B0)) & 65535);
+                    c[csi] = ((valueA0B0) & 65535);
                     var valueA1B1 = valueA1 * valueB1;
                     var tempInt;
                     tempInt = a0b0high + (valueA0B0 & 65535) + (d & 65535) + (valueA1B1 & 65535);
-                    c[csi + 1] = (((tempInt)) & 65535);
+                    c[csi + 1] = ((tempInt) & 65535);
                     tempInt = valueA1B1 + ((tempInt) >>> 16) + a0b0high + ((d) >>> 16) + ((valueA1B1) >>> 16) - (s & 65535);
-                    c[csi + 2] = (((tempInt)) & 65535);
-                    c[csi + 3] = ((((((tempInt) >>> 16))))|0);
+                    c[csi + 2] = ((tempInt) & 65535);
+                    c[csi + 3] = ((((tempInt) >>> 16))|0);
                 }
             }
         }
@@ -1788,16 +1788,16 @@ function(wordCount, reg, negative) {
                     var a0b0high = (valueA0B0 >>> 16);
                     var tempInt;
                     tempInt = valueA0B0 + ((c[csi]) & 65535);
-                    c[csi] = (((tempInt)) & 65535);
+                    c[csi] = ((tempInt) & 65535);
                     var valueA1B1 = valueA1 * b1;
                     var a1b1low = valueA1B1 & 65535;
                     var a1b1high = (valueA1B1) >>> 16;
                     tempInt = ((tempInt) >>> 16) + (valueA0B0 & 65535) + (d & 65535) + a1b1low + ((c[csi + 1]) & 65535);
-                    c[csi + 1] = (((tempInt)) & 65535);
+                    c[csi + 1] = ((tempInt) & 65535);
                     tempInt = ((tempInt) >>> 16) + a1b1low + a0b0high + ((d) >>> 16) + a1b1high - (s & 65535) + ((c[csi + 2]) & 65535);
-                    c[csi + 2] = (((tempInt)) & 65535);
+                    c[csi + 2] = ((tempInt) & 65535);
                     tempInt = ((tempInt) >>> 16) + a1b1high + ((c[csi + 3]) & 65535);
-                    c[csi + 3] = (((tempInt)) & 65535);
+                    c[csi + 3] = ((tempInt) & 65535);
                     if ((tempInt >> 16) != 0) {
                         c[csi + 4] = ((c[csi + 4] + 1) & 65535);
                         c[csi + 5] = ((((c[csi + 5] + (((c[csi + 4] == 0) ? 1 : 0)|0)) & 65535))|0);
@@ -1819,16 +1819,16 @@ function(wordCount, reg, negative) {
                     var a0b0high = (valueA0B0 >>> 16);
                     var tempInt;
                     tempInt = valueA0B0 + ((c[csi]) & 65535);
-                    c[csi] = (((tempInt)) & 65535);
+                    c[csi] = ((tempInt) & 65535);
                     var valueA1B1 = valueA1 * valueB1;
                     var a1b1low = valueA1B1 & 65535;
                     var a1b1high = (valueA1B1 >>> 16);
                     tempInt = ((tempInt) >>> 16) + (valueA0B0 & 65535) + (d & 65535) + a1b1low + ((c[csi + 1]) & 65535);
-                    c[csi + 1] = (((tempInt)) & 65535);
+                    c[csi + 1] = ((tempInt) & 65535);
                     tempInt = ((tempInt) >>> 16) + a1b1low + a0b0high + ((d) >>> 16) + a1b1high - (s & 65535) + ((c[csi + 2]) & 65535);
-                    c[csi + 2] = (((tempInt)) & 65535);
+                    c[csi + 2] = ((tempInt) & 65535);
                     tempInt = ((tempInt) >>> 16) + a1b1high + ((c[csi + 3]) & 65535);
-                    c[csi + 3] = (((tempInt)) & 65535);
+                    c[csi + 3] = ((tempInt) & 65535);
                     if ((tempInt >> 16) != 0) {
                         c[csi + 4] = ((c[csi + 4] + 1) & 65535);
                         c[csi + 5] = ((((c[csi + 5] + (((c[csi + 4] == 0) ? 1 : 0)|0)) & 65535))|0);
@@ -1857,8 +1857,8 @@ function(wordCount, reg, negative) {
         var valueTPstart = ((tempStart + (words1Count + 2 + words2Count))|0);
         {
             var shiftWords = ((words2[words2Start + words2Count - 1] == 0 ? 1 : 0)|0);
-            tempArr[valueTBstart] = (0 & 65535);
-            tempArr[valueTBstart + words2Count - 1] = (0 & 65535);
+            tempArr[valueTBstart] = 0;
+            tempArr[valueTBstart + words2Count - 1] = 0;
             {
                 var arrfillSrc = words2Start;
                 var arrfillDst = ((valueTBstart + shiftWords)|0);
@@ -1866,9 +1866,9 @@ function(wordCount, reg, negative) {
             }
             var shiftBits = ((16 - BigInteger.BitPrecision(tempArr[valueTBstart + words2Count - 1])) & 65535);
             BigInteger.ShiftWordsLeftByBits(tempArr, valueTBstart, words2Count, shiftBits);
-            tempArr[0] = (0 & 65535);
-            tempArr[words1Count] = (0 & 65535);
-            tempArr[words1Count + 1] = (0 & 65535);
+            tempArr[0] = 0;
+            tempArr[words1Count] = 0;
+            tempArr[words1Count + 1] = 0;
             {
                 var arrfillSrc = words1Start;
                 var arrfillDst = ((tempStart + shiftWords)|0);
@@ -1877,8 +1877,8 @@ function(wordCount, reg, negative) {
             BigInteger.ShiftWordsLeftByBits(tempArr, tempStart, words1Count + 2, shiftBits);
             if (tempArr[tempStart + words1Count + 1] == 0 && ((tempArr[tempStart + words1Count]) & 65535) <= 1) {
                 if (quotientArr != null) {
-                    quotientArr[quotientStart + words1Count - words2Count + 1] = (0 & 65535);
-                    quotientArr[quotientStart + words1Count - words2Count] = (0 & 65535);
+                    quotientArr[quotientStart + words1Count - words2Count + 1] = 0;
+                    quotientArr[quotientStart + words1Count - words2Count] = 0;
                 }
                 while (tempArr[words1Count] != 0 || BigInteger.Compare(tempArr, ((tempStart + words1Count - words2Count)|0), tempArr, valueTBstart, words2Count) >= 0) {
                     tempArr[words1Count] = ((((tempArr[words1Count] - ((BigInteger.Subtract(tempArr, tempStart + words1Count - words2Count, tempArr, tempStart + words1Count - words2Count, tempArr, valueTBstart, words2Count))|0)) & 65535))|0);
@@ -1907,8 +1907,8 @@ function(wordCount, reg, negative) {
                     } else if (n == 2) {
                         BigInteger.BaselineMultiply2(tempArr, valueTPstart, quot, qs, tempArr, valueTBstart);
                     } else {
-                        tempArr[valueTPstart + n] = (0 & 65535);
-                        tempArr[valueTPstart + n + 1] = (0 & 65535);
+                        tempArr[valueTPstart + n] = 0;
+                        tempArr[valueTPstart + n + 1] = 0;
                         quotient0 &= 65535;
                         quotient1 &= 65535;
                         BigInteger.AtomicMultiplyOpt(tempArr, valueTPstart, quotient0, quotient1, tempArr, valueTBstart, 0, n);
@@ -1964,7 +1964,7 @@ function(wordCount, reg, negative) {
             for (var i = 0; i < len; i += 2, j++) {
                 var index = littleEndian ? i : len - 1 - i;
                 var index2 = littleEndian ? i + 1 : len - 2 - i;
-                newreg[j] = (((((bytes[index] & 255))))|0);
+                newreg[j] = (((bytes[index] & 255))|0);
                 if (index2 >= 0 && index2 < len) {
                     newreg[j] = ((((newreg[j] | (((((bytes[index2])|0) << 8)|0))) & 65535))|0);
                 }
@@ -1973,7 +1973,7 @@ function(wordCount, reg, negative) {
             for (var i = 0; i < len; i += 2, j++) {
                 var index = littleEndian ? i : len - 1 - i;
                 var index2 = littleEndian ? i + 1 : len - 2 - i;
-                newreg[j] = (((((bytes[index] & 255))))|0);
+                newreg[j] = (((bytes[index] & 255))|0);
                 if (index2 >= 0 && index2 < len) {
                     newreg[j] = ((((newreg[j] | (((((bytes[index2])|0) << 8)|0))) & 65535))|0);
                 } else {
