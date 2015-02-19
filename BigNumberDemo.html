@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Big Number Demo</title>
+<!--
+# Written in 2015 by Peter Occil.
+# Any copyright is dedicated to the Public Domain.
+# http://creativecommons.org/publicdomain/zero/1.0/
+# 
+# If you like this, you should donate to Peter O.
+# at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
+
+# Generates test cases for the JavaScript version.
+-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="BigNumberMin.js"></script>
+<body>
+<form>
+<input type="text" id="op1"> 
+<select id="operation">
+<option value="add">+</option>
+<option value="sub">-</option>
+<option value="mul">*</option>
+<option value="div">/</option>
+</select>
+<input type="text" id="op2">
+<input type="button" id="equals" value="="> <input type="text" id="result" readonly="readonly"><br/>
+</form>
+<script>
+<!--
+$("#equals").on("click",function(){
+ var ed1=ExtendedDecimal.FromString($("#op1").get(0).value);
+ var ed2=ExtendedDecimal.FromString($("#op2").get(0).value);
+ var operation=$("#operation").get(0)
+ var selvalue=operation[operation.selectedIndex].value
+ var result="";
+ if(selvalue=="add"){
+  result=ed1.Add(ed2);
+ } else if(selvalue=="sub"){
+  result=ed1.Subtract(ed2); 
+ } else if(selvalue=="mul"){
+  result=ed1.Multiply(ed2); 
+ } else if(selvalue=="div"){
+  result=ed1.Divide(ed2,PrecisionContext.Decimal64); 
+ }
+ $("#result").get(0).value=result.toString();
+})
+// -->
+</script>
+</body>
