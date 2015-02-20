@@ -3,3 +3,4 @@
 .git/
 .gitignore
 runtime.js
+*.html
