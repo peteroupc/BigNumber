@@ -6048,7 +6048,7 @@ var DecimalUtility = function() {
     };
 })(DecimalUtility,DecimalUtility.prototype);
 
-var Rounding={};Rounding.Up=0;Rounding['Up']=0;Rounding.Down=1;Rounding['Down']=1;Rounding.Ceiling=2;Rounding['Ceiling']=2;Rounding.Floor=3;Rounding['Floor']=3;Rounding.HalfUp=4;Rounding['HalfUp']=4;Rounding.HalfDown=5;Rounding['HalfDown']=5;Rounding.HalfEven=6;Rounding['HalfEven']=6;Rounding.Unnecessary=7;Rounding['Unnecessary']=7;Rounding.ZeroFiveUp=8;Rounding['ZeroFiveUp']=8;Rounding.Odd=9;Rounding['Odd']=9;Rounding.OddOrZeroFiveUp=10;Rounding['OddOrZeroFiveUp']=10;
+var Rounding=function(){};Rounding.Up=0;Rounding['Up']=0;Rounding.Down=1;Rounding['Down']=1;Rounding.Ceiling=2;Rounding['Ceiling']=2;Rounding.Floor=3;Rounding['Floor']=3;Rounding.HalfUp=4;Rounding['HalfUp']=4;Rounding.HalfDown=5;Rounding['HalfDown']=5;Rounding.HalfEven=6;Rounding['HalfEven']=6;Rounding.Unnecessary=7;Rounding['Unnecessary']=7;Rounding.ZeroFiveUp=8;Rounding['ZeroFiveUp']=8;Rounding.Odd=9;Rounding['Odd']=9;Rounding.OddOrZeroFiveUp=10;Rounding['OddOrZeroFiveUp']=10;
 
 if(typeof exports!=="undefined")exports['Rounding']=Rounding;
 if(typeof window!=="undefined")window['Rounding']=Rounding;
