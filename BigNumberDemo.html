@@ -5,7 +5,7 @@
 # Written in 2015 by Peter Occil.
 # Any copyright is dedicated to the Public Domain.
 # http://creativecommons.org/publicdomain/zero/1.0/
-# 
+#
 # If you like this, you should donate to Peter O.
 # at: http://upokecenter.dreamhosters.com/articles/donate-now-2/
 -->
@@ -13,7 +13,7 @@
 <script src="BigNumberMin.js"></script>
 <body>
 <form>
-<input type="text" id="op1"> 
+<input type="text" id="op1">
 <select id="operation">
 <option value="add">+</option>
 <option value="sub">-</option>
@@ -34,11 +34,11 @@ $("#equals").on("click",function(){
  if(selvalue=="add"){
   result=ed1.Add(ed2);
  } else if(selvalue=="sub"){
-  result=ed1.Subtract(ed2); 
+  result=ed1.Subtract(ed2);
  } else if(selvalue=="mul"){
-  result=ed1.Multiply(ed2); 
+  result=ed1.Multiply(ed2);
  } else if(selvalue=="div"){
-  result=ed1.Divide(ed2,PrecisionContext.Decimal64); 
+  result=ed1.Divide(ed2,PrecisionContext.Decimal64);
  }
  $("#result").get(0).value=result.toString();
 })
