@@ -280,7 +280,6 @@ exports.JSInteropFactory=JSInteropFactory;
 exports.ILong=ILong;
 exports.StringBuilder=StringBuilder;
 }
-
 var BigInteger =
 
 function(wordCount, reg, negative) {
@@ -3758,7 +3757,6 @@ function(wordCount, reg, negative) {
 
 if(typeof exports!=="undefined")exports['BigInteger']=BigInteger;
 if(typeof window!=="undefined")window['BigInteger']=BigInteger;
-
 var FastInteger =
 
 function(value) {
@@ -4687,7 +4685,6 @@ function(value) {
         }
     };
 })(FastInteger,FastInteger.prototype);
-
 var BitShiftAccumulator =
 
 function(bigint, lastDiscarded, olderDiscarded) {
@@ -4995,7 +4992,6 @@ function(bigint, lastDiscarded, olderDiscarded) {
         }
     };
 })(BitShiftAccumulator,BitShiftAccumulator.prototype);
-
 var DigitShiftAccumulator =
 
 function(bigint, lastDiscarded, olderDiscarded) {
@@ -5446,7 +5442,6 @@ function(bigint, lastDiscarded, olderDiscarded) {
         }
     };
 })(DigitShiftAccumulator,DigitShiftAccumulator.prototype);
-
 var DecimalUtility = function() {
 
 };
@@ -6047,12 +6042,10 @@ var DecimalUtility = function() {
         return bigmant;
     };
 })(DecimalUtility,DecimalUtility.prototype);
-
 var Rounding=function(){};Rounding.Up=0;Rounding['Up']=0;Rounding.Down=1;Rounding['Down']=1;Rounding.Ceiling=2;Rounding['Ceiling']=2;Rounding.Floor=3;Rounding['Floor']=3;Rounding.HalfUp=4;Rounding['HalfUp']=4;Rounding.HalfDown=5;Rounding['HalfDown']=5;Rounding.HalfEven=6;Rounding['HalfEven']=6;Rounding.Unnecessary=7;Rounding['Unnecessary']=7;Rounding.ZeroFiveUp=8;Rounding['ZeroFiveUp']=8;Rounding.Odd=9;Rounding['Odd']=9;Rounding.OddOrZeroFiveUp=10;Rounding['OddOrZeroFiveUp']=10;
 
 if(typeof exports!=="undefined")exports['Rounding']=Rounding;
 if(typeof window!=="undefined")window['Rounding']=Rounding;
-
 var PrecisionContext =
 
 function(precision, rounding, exponentMinSmall, exponentMaxSmall, clampNormalExponents) {
@@ -6292,7 +6285,6 @@ function(precision, rounding, exponentMinSmall, exponentMaxSmall, clampNormalExp
 
 if(typeof exports!=="undefined")exports['PrecisionContext']=PrecisionContext;
 if(typeof window!=="undefined")window['PrecisionContext']=PrecisionContext;
-
 var BigNumberFlags = function() {
 
 };
@@ -6308,7 +6300,6 @@ var BigNumberFlags = function() {
     constructor.FiniteOnly = 0;
     constructor.FiniteAndNonFinite = 1;
 })(BigNumberFlags,BigNumberFlags.prototype);
-
 var RadixMath = function(helper) {
 
     this.helper = helper;
@@ -9398,7 +9389,6 @@ var RadixMath = function(helper) {
         return this.RoundToPrecision(thisValue, ctx);
     };
 })(RadixMath,RadixMath.prototype);
-
 var TrapException =
 
 function(flag, ctx, result) {
@@ -9428,7 +9418,6 @@ function(flag, ctx, result) {
 
 if(typeof exports!=="undefined")exports['TrapException']=TrapException;
 if(typeof window!=="undefined")window['TrapException']=TrapException;
-
 var TrappableRadixMath = function(math) {
 
     this.math = math;
@@ -9655,7 +9644,6 @@ var TrappableRadixMath = function(math) {
         return this.TriggerTraps(result, tctx, ctx);
     };
 })(TrappableRadixMath,TrappableRadixMath.prototype);
-
 var SimpleRadixMath = function(wrapper) {
 
     this.wrapper = wrapper;
@@ -10262,7 +10250,6 @@ var SimpleRadixMath = function(wrapper) {
         return this.PostProcessAfterQuantize(thisValue, ctx, ctx2);
     };
 })(SimpleRadixMath,SimpleRadixMath.prototype);
-
 var ExtendedOrSimpleRadixMath = function(helper) {
 
     this.ext = new RadixMath(helper);
@@ -10381,7 +10368,6 @@ var ExtendedOrSimpleRadixMath = function(helper) {
         return this.ext.compareTo(thisValue, otherValue);
     };
 })(ExtendedOrSimpleRadixMath,ExtendedOrSimpleRadixMath.prototype);
-
 var ExtendedDecimal =
 
 function(unsignedMantissa, exponent, flags) {
@@ -11861,7 +11847,6 @@ var tmpoffset = offset;
 
 if(typeof exports!=="undefined")exports['ExtendedDecimal']=ExtendedDecimal;
 if(typeof window!=="undefined")window['ExtendedDecimal']=ExtendedDecimal;
-
 var ExtendedFloat =
 
 function(unsignedMantissa, exponent, flags) {

@@ -280,7 +280,6 @@ exports.JSInteropFactory=JSInteropFactory;
 exports.ILong=ILong;
 exports.StringBuilder=StringBuilder;
 }
-
 var BigInteger =
 
 function(wordCount, reg, negative) {
