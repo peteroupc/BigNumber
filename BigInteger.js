@@ -194,30 +194,30 @@ ILong.prototype._divideUnsignedDividendUnsigned=function(divisor){
  divisor|=0;
  if(divisor<0)throw new RuntimeException("value is less than 0");
  if(divisor==1)return this;
-		if (this.hi==0){
+    if (this.hi==0){
     return new ILong((this.lo>>>0)/divisor,0);
-		} else {
+    } else {
     var rem=JSInteropFactory.divide64By32(this.lo,this.hi,divisor);
     return rem;
-		}
+    }
 }
 
 ILong.prototype._remainderUnsignedDividendUnsigned=function(divisor){
  divisor|=0;
  if(divisor<0)throw new RuntimeException("value is less than 0");
  if(divisor==1)return this;
-		if (divisor < 0x10000 || this.hi==0)
-		{
+    if (divisor < 0x10000 || this.hi==0)
+    {
     var r=this.hi%divisor;
     r=((this.lo>>>16)|(r<<16))%divisor;
     return new ILong(
       (((this.lo&0xFFFF)|(r<<16))%divisor)&0xFFFF,
       0
     );
-		} else {
+    } else {
     var rem=JSInteropFactory.divideFourWordsByTwo(this,divisor);
     return new ILong(rem[1],(rem[1]>>>31)==0 ? 0 : (1<<31));
-		}
+    }
 }
 
 ILong.prototype.shiftLeft=function(len){
