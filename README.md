@@ -12,6 +12,8 @@ If you like this software, consider donating to me at this link: [http://upokece
 
 An arbitrary-precision arithmetic library for JavaScript.
 
+Demo: [https://peteroupc.github.io/BigNumber/demo/](https://peteroupc.github.io/BigNumber/demo/)
+
 Installation
 --------------
 
