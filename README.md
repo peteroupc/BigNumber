@@ -6,7 +6,7 @@ BigNumber
 
 **Download source code: [ZIP file](https://github.com/peteroupc/BigNumber/archive/master.zip)**
 
-If you like this software, consider donating to me at this link: [http://upokecenter.dreamhosters.com/articles/donate-now-2/](http://upokecenter.dreamhosters.com/articles/donate-now-2/)
+If you like this software, consider donating to me at this link: [http://peteroupc.github.io/](http://peteroupc.github.io/)
 
 ----
 
@@ -40,7 +40,7 @@ Usage
     var num=BigInteger.valueOf(2000);
 
 For API documentation, see the [CBOR-Java wiki](https://github.com/peteroupc/CBOR-Java/wiki).
-Although the wiki describes the Java version, the JavaScript version uses essentially
+Although the wiki describes the Java version, the JavaScript version uses almost
 the same methods for BigInteger, ExtendedDecimal, and ExtendedFloat.
 
 History
