@@ -5,6 +5,7 @@
 *.jar
 *.log
 *.map
+*.nupkg
 *.pyc
 *.shf*
 *.snk
@@ -15,6 +16,7 @@
 .pmd
 .project
 .settings/
+.vs/
 CBORTest/OpenCover/
 CBORTest/ProfilingSessions/
 CBORTest/bin/
